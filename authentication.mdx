@@ -15,23 +15,24 @@ Create your account on our [dashboard](https://app.ledgerbeam.com) to access all
 
 After signing up, you'll be guided through creating your workspace. This is where you'll manage your API keys, view usage analytics, and configure your integration settings.
 
-<div class="text--center">
-![Workspace Setup](file:workspace-setup.png)
-
-</div>
+<Frame>
+  <img
+    src="/images/settings-api-key.png"
+    style={{ borderRadius:"0.5rem" }}
+    alt=""
+    title=""
+  />
+</Frame>
 
 ## Get Your API Key
 
-Your API key is automatically generated when you create your workspace. You can find it in the [API Keys section](https://app.ledgerbeam.com/keys) of your dashboard.
+Create an API key for your workspace. You can find it in the [API Keys section](https://app.ledgerbeam.com/settings/developer) of your dashboard.
 
-<div class="text--center">
-![API Key Management](file:api-keys.png)
 
-</div>
 
 ### Using Your API Key
 
-Include your API key in the `Authorization` header of your requests:
+Include your API key in the `API-KEY` header of your requests:
 
 ```bash
 curl -X POST https://api.ledgerbeam.com/v1/transactions \
@@ -49,7 +50,7 @@ curl -X POST https://api.ledgerbeam.com/v1/transactions \
 
 ## Rate Limits
 
-Free accounts are limited to 1,000 requests per minute. Paid plans include higher limits and priority processing. Check your current usage in the [dashboard](https://app.ledgerbeam.com/usage).
+Account creation is free. But paid plans include higher limits and priority processing. Check your current plan in the [dashboard](https://app.ledgerbeam.com/settings/billing).
 
 ## Need Help?
 
