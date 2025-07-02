@@ -18,11 +18,11 @@
             "pages": [
               "index",
               "authentication",
-              "development"
+              "errors"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Enrichment",
             "pages": [
               "essentials/markdown",
               "essentials/code",
