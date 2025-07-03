@@ -1,0 +1,63 @@
+---
+title: "Transaction Categorization"
+slug: "enrichment/categorization"
+---
+
+Transaction categorization automatically classifies financial transactions based on their purpose and nature. This intelligent classification system provides structured insights that help you understand spending patterns and organize financial data effectively.
+
+### How Categorization Works
+
+Our AI-powered categorization engine automatically detects the appropriate category based on the entities involved in the transaction. When we identify merchants, payment processors, and other parties in the transaction description, our system uses this entity information to determine the most suitable category.
+
+For example, when we detect "Starbucks" as a merchant entity, we automatically categorize the transaction as "Food & Dining" with subcategories like "Coffee Shops" and "Restaurants." The system considers the merchant's business type, industry, and historical categorization patterns to ensure accurate classification.
+
+### Category Types
+
+LedgerBeam provides comprehensive categorization across consumer and business transactions. Our system automatically assigns the most appropriate category based on the transaction details, merchant information, and account holder type.
+
+### Special Categories
+
+**Missing Account Context**
+
+While providing account holder information can enhance categorization accuracy, our models are smart enough to identify appropriate categories even without this context. The system analyzes the transaction description, amount, and merchant information to make intelligent categorization decisions regardless of account holder details.
+
+**Entity-Based Categorization**
+
+Once we identify any entity in a transaction, we always assign an appropriate category. Our AI models are highly intelligent and can categorize transactions even with minimal data by analyzing patterns, amounts, and contextual clues. We never return insufficient information - if there's an entity, there's a category.
+
+For business transactions, we also provide accounting-specific categories that align with standard accounting practices and reporting requirements.
+
+### Custom Categorization
+
+**Creating Your Own Categories**
+
+LedgerBeam allows you to define custom categories tailored to your specific needs. This enables you to create categorization systems that match your business requirements and reporting standards.
+
+### Best Practices for Custom Categories
+
+- **Be Specific**: Create clear, distinct categories that don't overlap
+- **Keep It Simple**: Avoid overly complex hierarchies
+- **Include Catch-All**: Always include an "other" category for unmatched transactions
+- **Test Thoroughly**: Validate your categories with sample transactions
+- **Document Clearly**: Provide clear descriptions for each category
+
+### Category Structure
+
+Custom categories should be organized into incoming and outgoing transaction types, with clear, non-overlapping category names. Each category should have a specific purpose and avoid ambiguity.
+
+### Managing Custom Categories
+
+You can create, view, update, and delete custom categories through our API. Custom categories are associated with account holders and automatically applied to their transactions. Check our [API Reference](./api) for detailed endpoint documentation and examples.
+
+### Category Accuracy
+
+Our categorization system achieves 95%\+ accuracy through:
+
+- **Advanced Machine Learning**: Models trained on millions of transactions
+- **Contextual Analysis**: Understanding transaction context and relationships
+- **Continuous Improvement**: Regular model updates and refinements
+- **Quality Validation**: Automated and manual accuracy checks
+
+### Getting Started
+
+Ready to implement custom categorization? Check out our [API Reference](./api) for detailed endpoint documentation, or visit our [Quick Start Guide](./quickstart) to begin categorizing transactions.
