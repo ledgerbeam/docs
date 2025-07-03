@@ -1,9 +1,8 @@
 ---
-title: Overview
-slug: enrichment/overview
+title: "Overview"
+slug: "enrichment/overview"
+sidebarTitle: "Transaction Enrichment"
 ---
-
-# Understanding Transaction Enrichment
 
 Transaction enrichment transforms raw transaction descriptions into structured, actionable insights. At LedgerBeam, we process the movement of money between entities and automatically identify the parties involved, categorize spending, and detect recurring patterns.
 
@@ -12,22 +11,29 @@ Transaction enrichment transforms raw transaction descriptions into structured, 
 When you send a transaction description like `"STRIPE*NETFLIX.COM"`, our AI engine performs several steps to enrich your data:
 
 ### 1. Entity Identification
+
 Our algorithm identifies entities present in the transaction description. For example, from `"STRIPE*NETFLIX.COM"`, it detects:
+
 - **STRIPE**: Stripe Inc. (payment processor)
 - **NETFLIX.COM**: Netflix Inc. (merchant)
 
 The system then determines the roles of each entity:
+
 - **Stripe Inc.**: Intermediary (payment processor)
 - **Netflix Inc.**: Counterparty (merchant)
 
 ### 2. Transaction Categorization
+
 The categorization algorithm analyzes the transaction description, amount, and identified entities to determine the appropriate spending category. For a consumer transaction with Netflix, it would categorize it as:
+
 - **Primary Category**: Entertainment
 - **Secondary Category**: Streaming Service, Digital Content
 - **Accounting Category**: Subscriptions
 
 ### 3. Recurrence Detection
+
 Our system analyzes transaction patterns to identify recurring payments and subscriptions. It can detect:
+
 - Monthly subscriptions
 - Weekly recurring expenses
 - Seasonal patterns
@@ -35,4 +41,4 @@ Our system analyzes transaction patterns to identify recurring payments and subs
 
 ## Getting Started
 
-Ready to start enriching your transactions? Check out our [API Reference](./api) for detailed endpoint documentation and code examples, or visit our [Quick Start Guide](./quickstart) to get up and running in minutes. 
+Ready to start enriching your transactions? Check out our [API Reference](./api) for detailed endpoint documentation and code examples, or visit our [Quick Start Guide](./quickstart) to get up and running in minutes.
