@@ -27,9 +27,7 @@
               "enrichment/overview",
               "enrichment/entity-identification",
               "enrichment/categorization",
-              "enrichment/recurrence",
-              "enrichment/navigation",
-              "enrichment/reusable-snippets"
+              "enrichment/recurrence"
             ]
           }
         ]
