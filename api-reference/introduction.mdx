@@ -1,33 +1,90 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "Introduction"
+slug: "api"
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+### API Reference
 
-## Welcome
+Welcome to the LedgerBeam API Reference. Our RESTful API provides programmatic access to transaction enrichment, entity identification, categorization, and recurrence detection capabilities.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+### Base URL
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
-
-## Authentication
-
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+All API requests should be made to:
 ```
+https://api.ledgerbeam.com/v1
+```
+
+### Authentication
+
+All API requests require authentication using your API key. Include it in the `API-KEY` header:
+
+```bash
+API-KEY: YOUR_API_KEY
+```
+
+### Request Format
+
+All requests should include the following headers:
+- `Content-Type: application/json`
+- `API-KEY: YOUR_API_KEY`
+
+### Response Format
+
+All API responses are returned in JSON format with the following structure:
+
+#### Success Response
+```json
+{
+    // Response data here
+}
+```
+
+#### Error Response
+```json
+{
+  "error": {
+    "description": [
+      "Error message here"
+    ]
+  }
+}
+```
+
+### Rate Limits
+
+- **Free Plan**: 1,000 requests per minute
+- **Pro Plan**: 10,000 requests per minute
+- **Enterprise Plan**: Custom limits
+
+Rate limit headers are included in all responses:
+- `X-RateLimit-Limit`: Maximum requests per window
+- `X-RateLimit-Remaining`: Remaining requests in current window
+- `X-RateLimit-Reset`: Time when the rate limit resets
+
+
+
+### Error Handling
+
+The API uses standard HTTP status codes:
+
+- `200` - Success
+- `400` - Bad Request (invalid parameters)
+- `401` - Unauthorized (invalid API key)
+- `403` - Forbidden (insufficient permissions)
+- `404` - Not Found
+- `429` - Too Many Requests (rate limit exceeded)
+- `500` - Internal Server Error
+
+
+### Getting Started
+
+1. **Get your API key** from the [dashboard](https://app.ledgerbeam.com)
+2. **Enrich your first transaction** using the [Transaction Enrichment endpoint](./enrichment)
+3. **Explore the endpoints** to understand all available features
+
+### Support
+
+Need help with the API? Check out our:
+- [Quick Start Guide](./quickstart)
+- [Error Handling](./errors) documentation
+- [Support](mailto:support@ledgerbeam.com) team 
