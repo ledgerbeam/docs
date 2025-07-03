@@ -1,54 +1,156 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "title": "LedgerBeam API",
+    "description": "Transaction enrichment API for identifying entities, categorizing transactions, and detecting recurring patterns",
+    "version": "1.0.0",
+    "contact": {
+      "name": "LedgerBeam Support",
+      "email": "support@ledgerbeam.com"
+    },
     "license": {
       "name": "MIT"
-    },
-    "version": "1.0.0"
+    }
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://api.ledgerbeam.com/v1",
+      "description": "Production server"
     }
   ],
   "security": [
     {
-      "bearerAuth": []
+      "apiKeyAuth": []
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+    "/transactions": {
+      "post": {
+        "summary": "Enrich a transaction",
+        "description": "Enrich a transaction with entity identification, categorization, and recurrence detection",
+        "operationId": "enrichTransaction",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrichTransactionRequest"
+              },
+              "example": {
+                "description": "APPLE.COM/BILL",
+                "amount": 9.99,
+                "currency": "USD",
+                "date": "2024-01-15",
+                "entry_type": "outgoing"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Transaction enriched successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/EnrichTransactionResponse"
+                },
+                "example": {
+                  "id": "ee02c3be-3825-449c-a35f-7b7cc47675e8",
+                  "entity": {
+                    "description": "Apple is a multinational technology company known for its consumer electronics, software, and online services. The transaction was processed through Apple's own payment system, with no external intermediaries involved.",
+                    "id": "6890b942-df95-43f5-8f38-a5dcee46d24a",
+                    "intermediaries": [],
+                    "logo": "https://logos.ledgerbeam.com/www.apple.com",
+                    "name": "Apple",
+                    "type": "merchant",
+                    "website": "https://www.apple.com"
+                  },
+                  "category": {
+                    "primary": "Entertainment",
+                    "secondary": [
+                      "Streaming Service",
+                      "Digital Content",
+                      "Subscription Service"
+                    ],
+                    "accounting_category": "Subscriptions",
+                    "tags": [
+                      "streaming",
+                      "digital-content",
+                      "subscription"
+                    ]
+                  },
+                  "location": {
+                    "address": "1 Infinite Loop, Cupertino, CA 95014, USA",
+                    "street": "1 Infinite Loop",
+                    "city": "Cupertino",
+                    "state": "California",
+                    "country": "United States",
+                    "country_code": "US",
+                    "postal_code": "95014",
+                    "latitude": 37.33182,
+                    "longitude": -122.03118,
+                    "maps": {
+                      "google_maps_url": "https://www.google.com/maps/search/?api=1&query=1+Infinite+Loop,+Cupertino,+CA+95014+USA",
+                      "apple_maps_url": "https://maps.apple.com/?q=1+Infinite+Loop,+Cupertino,+CA+95014+USA",
+                      "waze_url": "https://waze.com/ul?q=1+Infinite+Loop,+Cupertino,+CA+95014+USA"
+                    }
+                  },
+                  "recurrence": {
+                    "is_recurring": true,
+                    "frequency": "monthly",
+                    "next_occurrence": "2025-07-24",
+                    "confidence_score": 0.95
+                  },
+                  "confidence_score": 0.95
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "description": [
+                      "This field is required"
+                    ]
                   }
                 }
               }
             }
           },
-          "400": {
-            "description": "Unexpected error",
+          "401": {
+            "description": "Unauthorized - invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Unauthorized access"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Rate limit exceeded"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -56,97 +158,6 @@
                 }
               }
             }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
-        "requestBody": {
-          "description": "Plant added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
           }
         }
       }
@@ -154,64 +165,337 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
+      "EnrichTransactionRequest": {
         "type": "object",
+        "required": [
+          "description"
+        ],
         "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
+          "description": {
+            "type": "string",
+            "description": "Transaction description to enrich",
+            "example": "APPLE.COM/BILL"
           },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
+          "id": {
+            "type": "string",
+            "description": "Optional transaction ID",
+            "example": "txn_123"
+          },
+          "account_holder_id": {
+            "type": "string",
+            "description": "Account holder ID for enhanced categorization",
+            "example": "ah_456"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Transaction date (YYYY-MM-DD)",
+            "example": "2024-01-15"
+          },
+          "amount": {
+            "type": "number",
+            "format": "float",
+            "description": "Transaction amount",
+            "example": 9.99
+          },
+          "currency": {
+            "type": "string",
+            "description": "Transaction currency code",
+            "example": "USD"
+          },
+          "entry_type": {
+            "type": "string",
+            "enum": [
+              "incoming",
+              "outgoing"
+            ],
+            "description": "Transaction direction",
+            "example": "outgoing"
+          },
+          "merchant_name": {
+            "type": "string",
+            "description": "Optional merchant name",
+            "example": "Apple Inc."
+          },
+          "location": {
+            "$ref": "#/components/schemas/TransactionLocation"
           }
         }
       },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
+      "TransactionLocation": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Full address",
+            "example": "1 Infinite Loop, Cupertino, CA 95014, USA"
           },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
+          "country": {
+            "type": "string",
+            "description": "Country name",
+            "example": "United States"
           }
-        ]
+        }
+      },
+      "EnrichTransactionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Transaction ID",
+            "example": "ee02c3be-3825-449c-a35f-7b7cc47675e8"
+          },
+          "entity": {
+            "$ref": "#/components/schemas/Entity"
+          },
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "recurrence": {
+            "$ref": "#/components/schemas/Recurrence"
+          },
+          "confidence_score": {
+            "type": "number",
+            "format": "float",
+            "description": "Overall confidence score for the enrichment",
+            "example": 0.95
+          }
+        }
+      },
+      "Entity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Entity ID",
+            "example": "6890b942-df95-43f5-8f38-a5dcee46d24a"
+          },
+          "name": {
+            "type": "string",
+            "description": "Entity name",
+            "example": "Apple"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "merchant",
+              "person",
+              "organization"
+            ],
+            "description": "Entity type",
+            "example": "merchant"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri",
+            "description": "Entity website",
+            "example": "https://www.apple.com"
+          },
+          "logo": {
+            "type": "string",
+            "format": "uri",
+            "description": "Entity logo URL",
+            "example": "https://logos.ledgerbeam.com/www.apple.com"
+          },
+          "description": {
+            "type": "string",
+            "description": "Entity description",
+            "example": "Apple is a multinational technology company..."
+          },
+          "intermediaries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of payment processors or intermediaries",
+            "example": []
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "primary": {
+            "type": "string",
+            "description": "Primary category",
+            "example": "Entertainment"
+          },
+          "secondary": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Secondary categories",
+            "example": [
+              "Streaming Service",
+              "Digital Content"
+            ]
+          },
+          "accounting_category": {
+            "type": "string",
+            "description": "Accounting category for business transactions",
+            "example": "Subscriptions"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Category tags",
+            "example": [
+              "streaming",
+              "digital-content"
+            ]
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Full address",
+            "example": "1 Infinite Loop, Cupertino, CA 95014, USA"
+          },
+          "street": {
+            "type": "string",
+            "description": "Street address",
+            "example": "1 Infinite Loop"
+          },
+          "city": {
+            "type": "string",
+            "description": "City",
+            "example": "Cupertino"
+          },
+          "state": {
+            "type": "string",
+            "description": "State or province",
+            "example": "California"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country name",
+            "example": "United States"
+          },
+          "country_code": {
+            "type": "string",
+            "description": "Country code",
+            "example": "US"
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Postal code",
+            "example": "95014"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "float",
+            "description": "Latitude coordinate",
+            "example": 37.33182
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float",
+            "description": "Longitude coordinate",
+            "example": -122.03118
+          },
+          "maps": {
+            "$ref": "#/components/schemas/Maps"
+          }
+        }
+      },
+      "Maps": {
+        "type": "object",
+        "properties": {
+          "google_maps_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Google Maps URL",
+            "example": "https://www.google.com/maps/search/?api=1&query=1+Infinite+Loop,+Cupertino,+CA+95014+USA"
+          },
+          "apple_maps_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Apple Maps URL",
+            "example": "https://maps.apple.com/?q=1+Infinite+Loop,+Cupertino,+CA+95014+USA"
+          },
+          "waze_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Waze URL",
+            "example": "https://waze.com/ul?q=1+Infinite+Loop,+Cupertino,+CA+95014+USA"
+          }
+        }
+      },
+      "Recurrence": {
+        "type": "object",
+        "properties": {
+          "is_recurring": {
+            "type": "boolean",
+            "description": "Whether the transaction is recurring",
+            "example": true
+          },
+          "frequency": {
+            "type": "string",
+            "enum": [
+              "daily",
+              "weekly",
+              "monthly",
+              "yearly"
+            ],
+            "description": "Recurrence frequency",
+            "example": "monthly"
+          },
+          "next_occurrence": {
+            "type": "string",
+            "format": "date",
+            "description": "Predicted next occurrence date",
+            "example": "2025-07-24"
+          },
+          "confidence_score": {
+            "type": "number",
+            "format": "float",
+            "description": "Confidence score for recurrence detection",
+            "example": 0.95
+          }
+        }
       },
       "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
         "type": "object",
         "properties": {
           "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ],
+            "description": "Error message or validation errors",
+            "example": "Unauthorized access"
           }
         }
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "API-KEY",
+        "description": "API key for authentication"
       }
     }
   }
-}
+} 
