@@ -24,12 +24,12 @@
           {
             "group": "Enrichment",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "enrichment/overview",
+              "enrichment/code",
+              "enrichment/images",
+              "enrichment/settings",
+              "enrichment/navigation",
+              "enrichment/reusable-snippets"
             ]
           }
         ]
