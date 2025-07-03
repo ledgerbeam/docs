@@ -37,11 +37,7 @@
                 "$ref": "#/components/schemas/EnrichTransactionRequest"
               },
               "example": {
-                "description": "APPLE.COM/BILL",
-                "amount": 9.99,
-                "currency": "USD",
-                "date": "2024-01-15",
-                "entry_type": "outgoing"
+                "description": "APPLE.COM/BILL"
               }
             }
           }
@@ -498,4 +494,4 @@
       }
     }
   }
-} 
+}
