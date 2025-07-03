@@ -1,0 +1,26 @@
+---
+title: "Entity Identification"
+slug: "identification"
+---
+
+Entity identification serves as the foundation of transaction enrichment. It detects entities within transaction descriptions and categorizes them based on their **role** in the transaction and **type**. All identified entities are accessible through our [Entities API](/entities).
+
+# Transaction Roles
+
+Every transaction involves one or more entities playing specific roles:
+
+- **Account Holder**: The entity whose account is being used for the transaction (may or may not appear in the description)
+- **Counterparty**: The other party in the transaction, typically visible in the description, which can be either a `person` or an `organization`
+- **Intermediaries**: Payment processors, delivery services, or other companies that facilitate the transaction on behalf of the account holder
+
+# Resolving Account Holder Ambiguity
+
+Certain transactions contain information about both the account holder and counterparty within the same description. These situations are particularly challenging to resolve, especially in `business` transactions where multiple organizations might be mentioned.
+
+Consider this transaction example:
+
+```
+PAYPAL *DOORDASH* RESTAURANT SUPPLY CO | REF: 12345 | *********** | *******************
+```
+
+From this description, we can identify `PAYPAL`, `DOORDASH`, and `RESTAURANT SUPPLY CO` as entities. Without additional context, it's unclear whether the account holder is the restaurant supply company or if they're the counterparty, while PayPal and DoorDash are clearly intermediaries. Providing the `name` of the [account holder](./account-holders) when available can significantly improve accuracy in such ambiguous cases.

@@ -25,7 +25,7 @@
             "group": "Enrichment",
             "pages": [
               "enrichment/overview",
-              "enrichment/code",
+              "enrichment/entity-identification",
               "enrichment/images",
               "enrichment/settings",
               "enrichment/navigation",
