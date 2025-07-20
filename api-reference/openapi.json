@@ -211,7 +211,12 @@
           "merchant_name": {
             "type": "string",
             "description": "Optional merchant name",
-            "example": "Apple Inc."
+            "example": "Apple"
+          },
+          "mcc": {
+            "type": "string",
+            "description": "Optional mcc",
+            "example": "5816"
           },
           "location": {
             "$ref": "#/components/schemas/TransactionLocation"
