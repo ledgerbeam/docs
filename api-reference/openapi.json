@@ -156,6 +156,1372 @@
             }
           }
         }
+      },
+      "get": {
+        "summary": "List transactions",
+        "description": "Retrieve a list of transactions with optional filtering",
+        "operationId": "listTransactions",
+        "parameters": [
+          {
+            "name": "account_holder_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter transactions by account holder ID"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 25
+            },
+            "description": "Number of transactions to return"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Pagination cursor"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transactions retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionListResponse"
+                },
+                "example": {
+                  "next_cursor": "XjdHaksD",
+                  "data": [
+                    {
+                      "id": "2dc6SE8A7cTQ2jUdUadCg",
+                      "description": "APPLE.COM/BILL",
+                      "amount": 9.99,
+                      "currency": "USD",
+                      "date": "2024-01-15",
+                      "entry_type": "outgoing",
+                      "account_holder_id": "35b927b6-6fda-40aa-93b8-95b47c2b2cad",
+                      "entity": {
+                        "id": "6890b942-df95-43f5-8f38-a5dcee46d24a",
+                        "name": "Apple",
+                        "type": "merchant",
+                        "website": "https://www.apple.com",
+                        "logo": "https://logos.ledgerbeam.com/www.apple.com"
+                      },
+                      "category": {
+                        "primary": "Entertainment",
+                        "secondary": [
+                          "Streaming Service"
+                        ],
+                        "accounting_category": "Subscriptions"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transactions/{id}": {
+      "get": {
+        "summary": "Get transaction",
+        "description": "Retrieve a specific transaction by ID",
+        "operationId": "getTransaction",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Transaction ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrichTransactionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transaction not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete transaction",
+        "description": "Delete a specific transaction",
+        "operationId": "deleteTransaction",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Transaction ID"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Transaction deleted successfully"
+          },
+          "404": {
+            "description": "Transaction not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transactions/{id}/assign": {
+      "post": {
+        "summary": "Assign transaction to account holder",
+        "description": "Assign a transaction to a specific account holder",
+        "operationId": "assignTransaction",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Transaction ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "account_holder_id"
+                ],
+                "properties": {
+                  "account_holder_id": {
+                    "type": "string",
+                    "description": "Account holder ID to assign the transaction to",
+                    "example": "35b927b6-6fda-40aa-93b8-95b47c2b2cad"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction assigned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionAssignmentResponse"
+                },
+                "example": {
+                  "id": "ee02c3be-3825-449c-a35f-7b7cc47675e8",
+                  "account_holder_id": "35b927b6-6fda-40aa-93b8-95b47c2b2cad",
+                  "assigned_at": "2024-01-15T10:30:00Z",
+                  "status": "assigned"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transaction or account holder not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account_holders": {
+      "post": {
+        "summary": "Create account holder",
+        "description": "Create a new account holder",
+        "operationId": "createAccountHolder",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAccountHolderRequest"
+              },
+              "example": {
+                "id": "35b927b6-6fda-40aa-93b8-95b47c2b2cad",
+                "type": "consumer",
+                "name": "John Doe"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account holder created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountHolder"
+                },
+                "example": {
+                  "id": "35b927b6-6fda-40aa-93b8-95b47c2b2cad",
+                  "type": "consumer",
+                  "created_at": "2024-03-30T00:00:00Z",
+                  "name": "John Doe",
+                  "category_id": "category_id"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List account holders",
+        "description": "Retrieve a list of account holders",
+        "operationId": "listAccountHolders",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 10
+            },
+            "description": "Number of account holders to return"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Pagination cursor"
+          },
+          {
+            "name": "created_after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter account holders created after this date"
+          },
+          {
+            "name": "created_before",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Filter account holders created before this date"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account holders retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountHolderListResponse"
+                },
+                "example": {
+                  "next_cursor": "XjdHaksD",
+                  "data": [
+                    {
+                      "id": "35b927b6-6fda-40aa-93b8-95b47c2b2cad",
+                      "type": "consumer",
+                      "created_at": "2024-03-30T00:00:00Z",
+                      "name": "John Doe",
+                      "category_id": "category_id"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account_holders/{id}": {
+      "get": {
+        "summary": "Get account holder",
+        "description": "Retrieve a specific account holder by ID",
+        "operationId": "getAccountHolder",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Account holder ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account holder retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountHolder"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Account holder not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete account holder",
+        "description": "Delete an account holder and all their transactions",
+        "operationId": "deleteAccountHolder",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Account holder ID"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Account holder deleted successfully"
+          },
+          "404": {
+            "description": "Account holder not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account_holders/{id}/recurring": {
+      "get": {
+        "summary": "Get account holder recurring transactions",
+        "description": "Find recurring groups in a transaction history of the account holder",
+        "operationId": "getAccountHolderRecurring",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Account holder ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recurring groups retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RecurringGroup"
+                  }
+                },
+                "example": [
+                  {
+                    "id": "8efbac45-9bd5-4b67-be29-334106198c40",
+                    "start_date": "2024-03-01",
+                    "end_date": "2024-03-30",
+                    "total_amount": 300,
+                    "average_amount": 10,
+                    "periodicity_in_days": 1,
+                    "periodicity": "daily",
+                    "counterparty": {
+                      "type": "organization",
+                      "id": "d4bc3c80-ec1a-3da2-836e-2a4ca4758be5",
+                      "name": "Starbucks",
+                      "website": "starbucks.com",
+                      "logo": "https://logos.ledgerbeam.com/starbucks.com",
+                      "mccs": [
+                        5814
+                      ]
+                    },
+                    "categories": {
+                      "general": "coffee shop",
+                      "accounting": "operational expenses"
+                    },
+                    "transaction_ids": [
+                      "2dc6SE8A7cTQ2jUdUadCg",
+                      "tQYAhhl0XNkl1wasacpVQ",
+                      "NNJTqvockIdKnYxBqPlJw"
+                    ],
+                    "entry_type": "outgoing"
+                  }
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "Account holder not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bank_statements": {
+      "post": {
+        "summary": "Submit bank statement",
+        "description": "Submit a bank statement for processing",
+        "operationId": "submitBankStatement",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "url"
+                ],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL of the bank statement file",
+                    "example": "https://example.com/statement.pdf"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bank statement submitted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankStatement"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List bank statements",
+        "description": "Retrieve a list of bank statements",
+        "operationId": "listBankStatements",
+        "responses": {
+          "200": {
+            "description": "Bank statements retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankStatementListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bank_statements/{id}": {
+      "get": {
+        "summary": "Get bank statement",
+        "description": "Retrieve a specific bank statement by ID",
+        "operationId": "getBankStatement",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bank statement ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bank statement retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankStatement"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bank statement not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete bank statement",
+        "description": "Delete a specific bank statement",
+        "operationId": "deleteBankStatement",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bank statement ID"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Bank statement deleted successfully"
+          },
+          "404": {
+            "description": "Bank statement not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bank_statements/{id}/results": {
+      "get": {
+        "summary": "Get bank statement results",
+        "description": "Retrieve the processing results of a bank statement",
+        "operationId": "getBankStatementResults",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bank statement ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bank statement results retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankStatementResults"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bank statement not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bank_statements/{id}/enrich": {
+      "get": {
+        "summary": "Enrich bank statement",
+        "description": "Enrich transactions from a bank statement",
+        "operationId": "enrichBankStatement",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bank statement ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bank statement enriched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankStatementEnrichment"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bank statement not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entities/resolve": {
+      "post": {
+        "summary": "Find entity by name",
+        "description": "Find an entity by its name",
+        "operationId": "findEntityByName",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Entity name to search for",
+                    "example": "Apple"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Entity found successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Entity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Entity not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entities/{id}": {
+      "get": {
+        "summary": "Get entity by ID",
+        "description": "Retrieve a specific entity by its ID",
+        "operationId": "getEntityById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Entity ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Entity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Entity not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resources": {
+      "get": {
+        "summary": "List resources",
+        "description": "Retrieve a list of resources",
+        "operationId": "listResources",
+        "responses": {
+          "200": {
+            "description": "Resources retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create resource",
+        "description": "Create a new resource",
+        "operationId": "createResource",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateResourceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resource created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resources/{id}": {
+      "get": {
+        "summary": "Get resource",
+        "description": "Retrieve a specific resource by ID",
+        "operationId": "getResource",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Resource ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update resource",
+        "description": "Update a specific resource",
+        "operationId": "updateResource",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Resource ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateResourceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resource updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete resource",
+        "description": "Delete a specific resource",
+        "operationId": "deleteResource",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Resource ID"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Resource deleted successfully"
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resources/check-connection/{id}": {
+      "post": {
+        "summary": "Check connection status",
+        "description": "Check the connection status of a resource",
+        "operationId": "checkConnectionStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Resource ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Connection status checked successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionStatus"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resources/validate-connection": {
+      "post": {
+        "summary": "Validate connection",
+        "description": "Validate a resource connection before creating",
+        "operationId": "validateConnection",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateConnectionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Connection validated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resources/{resource_id}/containers": {
+      "get": {
+        "summary": "List containers",
+        "description": "List containers for a specific resource",
+        "operationId": "listContainers",
+        "parameters": [
+          {
+            "name": "resource_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Resource ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Containers retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerListResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resources/{resource_id}/containers/{container_id}/fields": {
+      "get": {
+        "summary": "List fields",
+        "description": "List fields for a specific container",
+        "operationId": "listFields",
+        "parameters": [
+          {
+            "name": "resource_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Resource ID"
+          },
+          {
+            "name": "container_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Container ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fields retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FieldListResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource or container not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resources/{resource_id}/containers/{container_id}/fields/{field_id}": {
+      "put": {
+        "summary": "Update field",
+        "description": "Update a specific field",
+        "operationId": "updateField",
+        "parameters": [
+          {
+            "name": "resource_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Resource ID"
+          },
+          {
+            "name": "container_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Container ID"
+          },
+          {
+            "name": "field_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Field ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFieldRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Field updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Field"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource, container, or field not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resources/{resource_id}/containers/{container_id}/fields/{field_id}/possible_values": {
+      "get": {
+        "summary": "Get field possible values",
+        "description": "Get possible values for a specific field",
+        "operationId": "getFieldPossibleValues",
+        "parameters": [
+          {
+            "name": "resource_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Resource ID"
+          },
+          {
+            "name": "container_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Container ID"
+          },
+          {
+            "name": "field_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Field ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Field possible values retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FieldPossibleValues"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource, container, or field not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/billing/plans": {
+      "get": {
+        "summary": "List plans",
+        "description": "Retrieve available billing plans",
+        "operationId": "listPlans",
+        "responses": {
+          "200": {
+            "description": "Plans retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/billing/credit-history": {
+      "get": {
+        "summary": "List credit history",
+        "description": "Retrieve credit usage history",
+        "operationId": "listCreditHistory",
+        "responses": {
+          "200": {
+            "description": "Credit history retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditHistoryResponse"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -486,6 +1852,990 @@
             ],
             "description": "Error message or validation errors",
             "example": "Unauthorized access"
+          }
+        }
+      },
+      "CreateAccountHolderRequest": {
+        "type": "object",
+        "required": [
+          "id",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The unique ID of the account holder",
+            "example": "35b927b6-6fda-40aa-93b8-95b47c2b2cad"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "consumer",
+              "business"
+            ],
+            "description": "The type of the account holder",
+            "example": "consumer"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the account holder",
+            "example": "John Doe"
+          },
+          "category_id": {
+            "type": "string",
+            "description": "The category set ID to use for this account holder's transactions",
+            "example": "category_id"
+          }
+        }
+      },
+      "AccountHolder": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The unique ID of the account holder",
+            "example": "35b927b6-6fda-40aa-93b8-95b47c2b2cad"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "consumer",
+              "business"
+            ],
+            "description": "The type of the account holder",
+            "example": "consumer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The timestamp of when the account holder was created",
+            "example": "2024-03-30T00:00:00Z"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true,
+            "description": "The name of the account holder",
+            "example": "John Doe"
+          },
+          "category_id": {
+            "type": "string",
+            "nullable": true,
+            "description": "The category set ID to use for this account holder's transactions",
+            "example": "category_id"
+          }
+        }
+      },
+      "AccountHolderListResponse": {
+        "type": "object",
+        "properties": {
+          "next_cursor": {
+            "type": "string",
+            "description": "Pagination cursor for next page",
+            "example": "XjdHaksD"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountHolder"
+            },
+            "description": "List of account holders"
+          }
+        }
+      },
+      "TransactionListResponse": {
+        "type": "object",
+        "properties": {
+          "next_cursor": {
+            "type": "string",
+            "description": "Pagination cursor for next page",
+            "example": "XjdHaksD"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionSummary"
+            },
+            "description": "List of transactions"
+          }
+        }
+      },
+      "TransactionSummary": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Transaction ID",
+            "example": "2dc6SE8A7cTQ2jUdUadCg"
+          },
+          "description": {
+            "type": "string",
+            "description": "Transaction description",
+            "example": "APPLE.COM/BILL"
+          },
+          "amount": {
+            "type": "number",
+            "format": "float",
+            "description": "Transaction amount",
+            "example": 9.99
+          },
+          "currency": {
+            "type": "string",
+            "description": "Transaction currency",
+            "example": "USD"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Transaction date",
+            "example": "2024-01-15"
+          },
+          "entry_type": {
+            "type": "string",
+            "enum": [
+              "incoming",
+              "outgoing"
+            ],
+            "description": "Transaction direction",
+            "example": "outgoing"
+          },
+          "account_holder_id": {
+            "type": "string",
+            "description": "Account holder ID",
+            "example": "35b927b6-6fda-40aa-93b8-95b47c2b2cad"
+          },
+          "entity": {
+            "$ref": "#/components/schemas/Entity"
+          },
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          }
+        }
+      },
+      "RecurringGroup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "A unique UUID identifier for the group",
+            "example": "8efbac45-9bd5-4b67-be29-334106198c40"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "The date of the oldest transaction in the group",
+            "example": "2024-03-01"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "The date of the most recent transaction in the group",
+            "example": "2024-03-30"
+          },
+          "total_amount": {
+            "type": "number",
+            "format": "double",
+            "description": "The sum of all transaction amounts in this group",
+            "example": 300
+          },
+          "average_amount": {
+            "type": "number",
+            "format": "double",
+            "description": "The average amount per transaction in this group",
+            "example": 10
+          },
+          "periodicity_in_days": {
+            "type": "number",
+            "format": "double",
+            "description": "The estimated number of days between transactions in this group",
+            "example": 1
+          },
+          "periodicity": {
+            "type": "string",
+            "description": "A human-readable description of the transaction frequency",
+            "example": "daily"
+          },
+          "counterparty": {
+            "$ref": "#/components/schemas/Counterparty"
+          },
+          "categories": {
+            "$ref": "#/components/schemas/RecurringCategories"
+          },
+          "transaction_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Transactions in this recurrence group",
+            "example": [
+              "2dc6SE8A7cTQ2jUdUadCg",
+              "tQYAhhl0XNkl1wasacpVQ",
+              "NNJTqvockIdKnYxBqPlJw"
+            ]
+          },
+          "entry_type": {
+            "type": "string",
+            "enum": [
+              "incoming",
+              "outgoing"
+            ],
+            "description": "The direction of the flow of the money for the transactions within the group",
+            "example": "outgoing"
+          }
+        }
+      },
+      "Counterparty": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "merchant",
+              "person",
+              "organization"
+            ],
+            "description": "Counterparty type",
+            "example": "organization"
+          },
+          "id": {
+            "type": "string",
+            "description": "Counterparty ID",
+            "example": "d4bc3c80-ec1a-3da2-836e-2a4ca4758be5"
+          },
+          "name": {
+            "type": "string",
+            "description": "Counterparty name",
+            "example": "Starbucks"
+          },
+          "website": {
+            "type": "string",
+            "description": "Counterparty website",
+            "example": "starbucks.com"
+          },
+          "logo": {
+            "type": "string",
+            "format": "uri",
+            "description": "Counterparty logo URL",
+            "example": "https://logos.ledgerbeam.com/starbucks.com"
+          },
+          "mccs": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "Merchant category codes",
+            "example": [
+              5814
+            ]
+          }
+        }
+      },
+      "RecurringCategories": {
+        "type": "object",
+        "properties": {
+          "general": {
+            "type": "string",
+            "description": "General category",
+            "example": "coffee shop"
+          },
+          "accounting": {
+            "type": "string",
+            "description": "Accounting category",
+            "example": "operational expenses"
+          }
+        }
+      },
+      "BankStatement": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Bank statement ID",
+            "example": "bs_123456789"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the bank statement file",
+            "example": "https://example.com/statement.pdf"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "processing",
+              "completed",
+              "failed"
+            ],
+            "description": "Processing status",
+            "example": "processing"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp",
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "processed_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Processing completion timestamp",
+            "example": "2024-01-15T10:35:00Z"
+          }
+        }
+      },
+      "BankStatementListResponse": {
+        "type": "object",
+        "properties": {
+          "next_cursor": {
+            "type": "string",
+            "description": "Pagination cursor for next page",
+            "example": "XjdHaksD"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankStatement"
+            },
+            "description": "List of bank statements"
+          }
+        }
+      },
+      "BankStatementResults": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Bank statement ID",
+            "example": "bs_123456789"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "processing",
+              "completed",
+              "failed"
+            ],
+            "description": "Processing status",
+            "example": "completed"
+          },
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionSummary"
+            },
+            "description": "Extracted transactions"
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "total_transactions": {
+                "type": "integer",
+                "description": "Total number of transactions",
+                "example": 45
+              },
+              "total_amount": {
+                "type": "number",
+                "format": "float",
+                "description": "Total amount",
+                "example": 1250.75
+              },
+              "currency": {
+                "type": "string",
+                "description": "Currency",
+                "example": "USD"
+              }
+            }
+          }
+        }
+      },
+      "BankStatementEnrichment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Bank statement ID",
+            "example": "bs_123456789"
+          },
+          "enriched_transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EnrichTransactionResponse"
+            },
+            "description": "Enriched transactions"
+          },
+          "enrichment_summary": {
+            "type": "object",
+            "properties": {
+              "total_enriched": {
+                "type": "integer",
+                "description": "Total enriched transactions",
+                "example": 45
+              },
+              "entities_identified": {
+                "type": "integer",
+                "description": "Number of entities identified",
+                "example": 38
+              },
+              "categories_assigned": {
+                "type": "integer",
+                "description": "Number of categories assigned",
+                "example": 42
+              },
+              "recurring_patterns_found": {
+                "type": "integer",
+                "description": "Number of recurring patterns found",
+                "example": 5
+              }
+            }
+          }
+        }
+      },
+      "TransactionAssignmentResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Transaction ID",
+            "example": "ee02c3be-3825-449c-a35f-7b7cc47675e8"
+          },
+          "account_holder_id": {
+            "type": "string",
+            "description": "Assigned account holder ID",
+            "example": "35b927b6-6fda-40aa-93b8-95b47c2b2cad"
+          },
+          "assigned_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Assignment timestamp",
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "assigned",
+              "unassigned"
+            ],
+            "description": "Assignment status",
+            "example": "assigned"
+          }
+        }
+      },
+      "CreateResourceRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "meta"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Resource name",
+            "example": "My Database"
+          },
+          "description": {
+            "type": "string",
+            "description": "Resource description",
+            "example": "Production database connection"
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type",
+            "example": "postgresql"
+          },
+          "meta": {
+            "type": "object",
+            "description": "Resource connection metadata",
+            "properties": {
+              "connection": {
+                "type": "string",
+                "example": "postgresql"
+              },
+              "host": {
+                "type": "string",
+                "example": "localhost"
+              },
+              "port": {
+                "type": "string",
+                "example": "5432"
+              },
+              "name": {
+                "type": "string",
+                "example": "mydb"
+              },
+              "username": {
+                "type": "string",
+                "example": "user"
+              },
+              "password": {
+                "type": "string",
+                "example": "password"
+              },
+              "options": {
+                "type": "array",
+                "items": {},
+                "example": []
+              },
+              "ssl": {
+                "type": "object",
+                "properties": {
+                  "ssl_mode": {
+                    "type": "string",
+                    "example": "require"
+                  },
+                  "certificate_type": {
+                    "type": "string",
+                    "example": "server"
+                  },
+                  "client_ca_certificate_file": {
+                    "type": "string"
+                  },
+                  "server_ca_certificate_file": {
+                    "type": "string"
+                  },
+                  "client_key_file": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "UpdateResourceRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Resource name",
+            "example": "My Updated Database"
+          },
+          "description": {
+            "type": "string",
+            "description": "Resource description",
+            "example": "Updated production database connection"
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type",
+            "example": "postgresql"
+          },
+          "meta": {
+            "type": "object",
+            "description": "Resource connection metadata"
+          }
+        }
+      },
+      "Resource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Resource ID",
+            "example": "res_123456789"
+          },
+          "name": {
+            "type": "string",
+            "description": "Resource name",
+            "example": "My Database"
+          },
+          "description": {
+            "type": "string",
+            "description": "Resource description",
+            "example": "Production database connection"
+          },
+          "type": {
+            "type": "string",
+            "description": "Resource type",
+            "example": "postgresql"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive",
+              "error"
+            ],
+            "description": "Resource status",
+            "example": "active"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp",
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp",
+            "example": "2024-01-15T10:35:00Z"
+          }
+        }
+      },
+      "ResourceListResponse": {
+        "type": "object",
+        "properties": {
+          "next_cursor": {
+            "type": "string",
+            "description": "Pagination cursor for next page",
+            "example": "XjdHaksD"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Resource"
+            },
+            "description": "List of resources"
+          }
+        }
+      },
+      "ConnectionStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "connected",
+              "disconnected",
+              "error"
+            ],
+            "description": "Connection status",
+            "example": "connected"
+          },
+          "message": {
+            "type": "string",
+            "description": "Status message",
+            "example": "Connection successful"
+          },
+          "checked_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Check timestamp",
+            "example": "2024-01-15T10:30:00Z"
+          }
+        }
+      },
+      "ValidateConnectionRequest": {
+        "type": "object",
+        "required": [
+          "resource_type",
+          "meta"
+        ],
+        "properties": {
+          "resource_type": {
+            "type": "string",
+            "description": "Resource type to validate",
+            "example": "postgresql"
+          },
+          "meta": {
+            "type": "object",
+            "description": "Connection metadata to validate"
+          }
+        }
+      },
+      "Container": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Container ID",
+            "example": "cont_123456789"
+          },
+          "name": {
+            "type": "string",
+            "description": "Container name",
+            "example": "users"
+          },
+          "type": {
+            "type": "string",
+            "description": "Container type",
+            "example": "table"
+          },
+          "description": {
+            "type": "string",
+            "description": "Container description",
+            "example": "User accounts table"
+          }
+        }
+      },
+      "ContainerListResponse": {
+        "type": "object",
+        "properties": {
+          "next_cursor": {
+            "type": "string",
+            "description": "Pagination cursor for next page",
+            "example": "XjdHaksD"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Container"
+            },
+            "description": "List of containers"
+          }
+        }
+      },
+      "Field": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Field ID",
+            "example": "field_123456789"
+          },
+          "name": {
+            "type": "string",
+            "description": "Field name",
+            "example": "email"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "Field display name",
+            "example": "Email Address"
+          },
+          "description": {
+            "type": "string",
+            "description": "Field description",
+            "example": "User email address"
+          },
+          "data_type": {
+            "type": "string",
+            "description": "Field data type",
+            "example": "varchar"
+          },
+          "semantic_type": {
+            "type": "string",
+            "description": "Field semantic type",
+            "example": "email"
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "public",
+              "private",
+              "hidden"
+            ],
+            "description": "Field visibility",
+            "example": "public"
+          }
+        }
+      },
+      "FieldListResponse": {
+        "type": "object",
+        "properties": {
+          "next_cursor": {
+            "type": "string",
+            "description": "Pagination cursor for next page",
+            "example": "XjdHaksD"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Field"
+            },
+            "description": "List of fields"
+          }
+        }
+      },
+      "UpdateFieldRequest": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Field description",
+            "example": "Updated field description"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "Field display name",
+            "example": "Updated Display Name"
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "public",
+              "private",
+              "hidden"
+            ],
+            "description": "Field visibility",
+            "example": "public"
+          },
+          "data_type": {
+            "type": "string",
+            "description": "Field data type",
+            "example": "varchar"
+          },
+          "semantic_type": {
+            "type": "string",
+            "description": "Field semantic type",
+            "example": "email"
+          }
+        }
+      },
+      "FieldPossibleValues": {
+        "type": "object",
+        "properties": {
+          "field_id": {
+            "type": "string",
+            "description": "Field ID",
+            "example": "field_123456789"
+          },
+          "possible_values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Possible values for the field",
+            "example": [
+              "active",
+              "inactive",
+              "pending"
+            ]
+          },
+          "total_count": {
+            "type": "integer",
+            "description": "Total number of possible values",
+            "example": 3
+          }
+        }
+      },
+      "Plan": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Plan ID",
+            "example": "plan_free"
+          },
+          "name": {
+            "type": "string",
+            "description": "Plan name",
+            "example": "Free Plan"
+          },
+          "description": {
+            "type": "string",
+            "description": "Plan description",
+            "example": "Free tier with basic features"
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "description": "Plan price",
+            "example": 0.0
+          },
+          "currency": {
+            "type": "string",
+            "description": "Plan currency",
+            "example": "USD"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Plan features",
+            "example": [
+              "1000 requests/month",
+              "Basic support"
+            ]
+          },
+          "limits": {
+            "type": "object",
+            "properties": {
+              "requests_per_month": {
+                "type": "integer",
+                "example": 1000
+              },
+              "rate_limit_per_minute": {
+                "type": "integer",
+                "example": 10
+              }
+            }
+          }
+        }
+      },
+      "PlanListResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Plan"
+            },
+            "description": "List of available plans"
+          }
+        }
+      },
+      "CreditUsage": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Usage date",
+            "example": "2024-01-15"
+          },
+          "credits_used": {
+            "type": "integer",
+            "description": "Credits used on this date",
+            "example": 150
+          },
+          "credits_remaining": {
+            "type": "integer",
+            "description": "Credits remaining",
+            "example": 850
+          },
+          "total_credits": {
+            "type": "integer",
+            "description": "Total credits for the period",
+            "example": 1000
+          }
+        }
+      },
+      "CreditHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "next_cursor": {
+            "type": "string",
+            "description": "Pagination cursor for next page",
+            "example": "XjdHaksD"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreditUsage"
+            },
+            "description": "List of credit usage records"
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "total_credits_used": {
+                "type": "integer",
+                "description": "Total credits used",
+                "example": 5000
+              },
+              "current_credits": {
+                "type": "integer",
+                "description": "Current available credits",
+                "example": 500
+              },
+              "period_start": {
+                "type": "string",
+                "format": "date",
+                "description": "Period start date",
+                "example": "2024-01-01"
+              },
+              "period_end": {
+                "type": "string",
+                "format": "date",
+                "description": "Period end date",
+                "example": "2024-01-31"
+              }
+            }
           }
         }
       }
