@@ -29,6 +29,22 @@
               "enrichment/categorization",
               "enrichment/recurrence"
             ]
+          },
+          {
+            "group": "Bank Statements",
+            "pages": [
+              "bank-statements/overview",
+              "bank-statements/processing",
+              "bank-statements/data-extraction"
+            ]
+          },
+          {
+            "group": "Account Holders",
+            "pages": [
+              "account-holders/overview",
+              "account-holders/transaction-management",
+              "account-holders/recurring-patterns"
+            ]
           }
         ]
       },
@@ -44,15 +60,65 @@
           {
             "group": "Transactions",
             "pages": [
-              "api-reference/transactions/enrich"
+              "api-reference/transactions/enrich",
+              "api-reference/transactions/list",
+              "api-reference/transactions/get",
+              "api-reference/transactions/assign",
+              "api-reference/transactions/delete"
+            ]
+          },
+          {
+            "group": "Account Holders",
+            "pages": [
+              "api-reference/account-holders/create",
+              "api-reference/account-holders/list",
+              "api-reference/account-holders/get",
+              "api-reference/account-holders/delete",
+              "api-reference/account-holders/recurring"
+            ]
+          },
+          {
+            "group": "Bank Statements",
+            "pages": [
+              "api-reference/bank-statements/submit",
+              "api-reference/bank-statements/list",
+              "api-reference/bank-statements/get",
+              "api-reference/bank-statements/results",
+              "api-reference/bank-statements/enrich",
+              "api-reference/bank-statements/delete"
+            ]
+          },
+          {
+            "group": "Entities",
+            "pages": [
+              "api-reference/entities/find",
+              "api-reference/entities/get"
+            ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              "api-reference/resources/list",
+              "api-reference/resources/create",
+              "api-reference/resources/get",
+              "api-reference/resources/update",
+              "api-reference/resources/delete",
+              "api-reference/resources/check-connection",
+              "api-reference/resources/validate-connection"
+            ]
+          },
+          {
+            "group": "Billing",
+            "pages": [
+              "api-reference/billing/plans",
+              "api-reference/billing/credit-history"
             ]
           }
         ]
       }
     ],
     "global": {
-      "anchors": [
-      ]
+      "anchors": []
     }
   },
   "logo": {
