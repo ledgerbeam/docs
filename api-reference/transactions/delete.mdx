@@ -1,0 +1,24 @@
+---
+title: "Delete Transaction"
+openapi: "DELETE /transactions/{id}"
+---
+
+## Overview
+
+Delete a specific transaction from your account. This action is permanent and cannot be undone.
+
+
+- **Data Cleanup**: Remove unwanted or duplicate transactions
+- **Privacy Compliance**: Delete transactions containing sensitive information
+- **Account Management**: Clean up test or erroneous transactions
+- **Data Retention**: Remove old transactions based on retention policies
+
+## Important Notes
+
+<Warning>
+Deleting a transaction is permanent and cannot be undone. Make sure you want to delete the transaction before making this request.
+</Warning>
+
+<Note>
+Deleted transactions will no longer appear in any API responses or reports.
+</Note>
