@@ -1,0 +1,48 @@
+---
+title: "Overview"
+slug: "bank-statements/overview"
+---
+
+Bank statement processing transforms raw financial documents into structured, analyzable transaction data. LedgerBeam's intelligent bank statement processing automatically extracts transactions, identifies entities, categorizes spending, and detects patterns from PDF statements and other financial documents.
+
+## How Bank Statement Processing Works
+
+When you submit a bank statement, our AI engine performs several sophisticated steps to extract and enrich your financial data.
+
+### Document Processing
+
+Our system automatically processes various bank statement formats including PDFs, CSV files, and other financial documents. The AI engine handles OCR processing to extract text from scanned documents and images, recognizes different bank statement layouts and structures, pulls out transaction details like dates, amounts, and descriptions, and ensures data integrity and completeness through validation.
+
+### Transaction Extraction
+
+The system identifies individual transactions from the statement, extracting transaction dates when each transaction occurred, amounts with proper currency detection, raw transaction descriptions from the bank, account information including account numbers and balances, and transaction types such as debits, credits, transfers, and other transaction categories.
+
+### Entity Identification
+
+For each extracted transaction, our AI identifies the entities involved. This includes merchants like businesses and service providers, payment processors such as Stripe, PayPal, Square, and other intermediaries, financial institutions including banks, credit unions, and payment networks, and counterparties like individuals or organizations involved in the transaction.
+
+### Categorization and Enrichment
+
+Each transaction is automatically categorized and enriched with primary categories for main spending categories like Food & Dining and Entertainment, secondary categories for more specific subcategories, accounting categories for business-appropriate accounting classifications, location data when geographic information is available, and recurrence detection to identify recurring patterns and subscriptions.
+
+## Supported Formats
+
+LedgerBeam supports a wide range of bank statement formats. For document types, we handle PDF statements including scanned and digital PDF documents, CSV files with comma-separated transaction exports, OFX/QFX Open Financial Exchange files, Excel files with spreadsheet-based transaction data, and text files containing plain text transaction logs.
+
+Our bank compatibility extends to major banks like Chase, Bank of America, Wells Fargo, and Citibank, local and national credit unions, online banks such as Ally Bank, Capital One 360, and Chime, various international formats for international banks, and fintech apps including Venmo, Cash App, PayPal, and other digital wallets.
+
+## Processing Workflow
+
+The processing workflow begins with statement submission via our API or web interface, where the system accepts URLs to hosted documents or direct file uploads. Your statement then enters our processing queue where it's prioritized based on your plan and current system load.
+
+Our advanced AI models analyze the document structure and extract all relevant transaction data. Each transaction goes through our enrichment pipeline for entity identification, categorization, and pattern detection.
+
+Processed results are made available through our API, including raw transactions with extracted transaction data, enriched data enhanced with entity and category information, analytics showing spending patterns, trends, and insights, and recurring groups that identify subscription and recurring payment patterns.
+
+## Accuracy and Reliability
+
+Our bank statement processing achieves exceptional accuracy through advanced OCR technology using state-of-the-art optical character recognition, machine learning models trained on millions of bank statements, multi-format support that handles various document layouts and formats, validation systems with automated quality checks and error detection, and human review where critical transactions are reviewed by financial experts.
+
+## Getting Started
+
+Ready to process your bank statements? Check out our [API Reference](/api-reference/bank-statements/submit) for detailed endpoint documentation, or visit our [Quick Start Guide](/quickstart) to begin processing bank statements in minutes.

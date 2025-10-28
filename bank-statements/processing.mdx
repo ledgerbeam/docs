@@ -1,0 +1,106 @@
+---
+title: "Statement Processing"
+slug: "bank-statements/processing"
+---
+
+Bank statement processing involves sophisticated AI algorithms that extract, validate, and enrich transaction data from various financial documents. This guide covers the technical aspects of how LedgerBeam processes bank statements and what you can expect from the results.
+
+## Processing Pipeline
+
+### Document Ingestion
+
+When you submit a bank statement, our system first validates and prepares the document for processing. We support URL submission where you provide a URL to a hosted bank statement, direct upload through our API, and batch processing for submitting multiple statements for bulk processing.
+
+Document validation includes file format verification, size and security checks, content type validation, and malware scanning to ensure the document is safe and properly formatted for processing.
+
+### Text Extraction
+
+Our OCR and text extraction engine processes the document to extract readable text. The OCR capabilities recognize handwritten notes and annotations, support various languages and character sets, maintain spatial relationships between text elements, and automatically improve image quality for better text recognition.
+
+Text processing involves character recognition and correction, layout analysis and table detection, date and number format normalization, and currency symbol identification to ensure accurate data extraction.
+
+### Transaction Parsing
+
+The AI engine identifies and extracts individual transactions from the extracted text. Transaction detection uses pattern recognition to identify transaction patterns across different bank formats, date parsing to extract transaction dates in various formats, amount extraction to identify monetary amounts with proper decimal handling, and description parsing to extract transaction descriptions and merchant names.
+
+Data validation includes balance reconciliation to verify running balances match extracted transactions, duplicate detection to identify and handle duplicate transactions, error correction that automatically corrects common OCR errors, and missing data detection that flags incomplete or unclear transactions.
+
+### Entity Recognition
+
+Each transaction undergoes entity identification to determine the parties involved. We detect merchants like retailers, restaurants, and service providers, payment processors such as Stripe, PayPal, Square, and Apple Pay, financial institutions including banks, credit unions, and investment firms, government entities for tax payments, license fees, and fines, and utilities for electric, gas, water, and internet providers.
+
+Recognition methods include name matching that compares transaction descriptions to known entity databases, pattern analysis that identifies recurring patterns and merchant signatures, context clues using transaction amounts, dates, and frequencies, and machine learning with AI models trained on millions of transaction examples.
+
+### Categorization Engine
+
+Transactions are automatically categorized using our advanced categorization system. Categorization levels include primary categories for main spending categories like Food & Dining and Transportation, secondary categories for more specific subcategories like Coffee Shops and Gas Stations, accounting categories for business-appropriate accounting classifications, and custom categories for user-defined categories specific to their needs.
+
+Categorization factors consider merchant information including business type and industry classification, transaction amount and typical spending ranges for different categories, timing patterns like time of day, day of week, and seasonal patterns, and historical data from previous categorization patterns for similar transactions.
+
+### Recurrence Detection
+
+Our system analyzes transaction patterns to identify recurring payments. Pattern types detected include fixed subscriptions like monthly streaming services and software subscriptions, variable recurring payments such as utility bills and insurance payments, seasonal patterns including annual subscriptions and quarterly payments, and irregular recurring payments for maintenance services and professional fees.
+
+Detection methods use frequency analysis to identify regular intervals between similar transactions, amount consistency to detect transactions with similar amounts to the same merchant, entity matching to group transactions by merchant or service provider, and temporal patterns to analyze timing patterns and seasonal variations.
+
+## Processing Results
+
+### Transaction Data Structure
+
+Each processed transaction includes:
+
+```json
+{
+  "id": "txn_123456789",
+  "date": "2024-01-15",
+  "amount": -29.99,
+  "currency": "USD",
+  "description": "NETFLIX.COM",
+  "account_holder_id": "ah_123456789",
+  "entity": {
+    "id": "ent_netflix",
+    "name": "Netflix",
+    "type": "merchant",
+    "website": "netflix.com",
+    "logo": "https://logos.ledgerbeam.com/netflix.com"
+  },
+  "category": {
+    "primary": "Entertainment",
+    "secondary": ["Streaming Service"],
+    "accounting_category": "Subscriptions"
+  },
+  "recurrence": {
+    "is_recurring": true,
+    "frequency": "monthly",
+    "next_occurrence": "2024-02-15"
+  }
+}
+```
+
+### Processing Statistics
+
+For each processed statement, you receive the total number of transactions extracted, processing time showing how long the processing took, confidence scores indicating AI confidence levels for each transaction, error reports detailing any issues encountered during processing, and enrichment summary with statistics on entities identified and categories assigned.
+
+## Quality Assurance
+
+### Automated Validation
+
+Our system includes multiple validation layers that ensure extracted data is consistent through data integrity checks, verify dates, amounts, and other data formats through format validation, check for logical inconsistencies with business logic validation, and compare against known patterns and databases through cross-reference validation.
+
+### Error Handling
+
+When processing issues occur, our system continues processing even if some transactions fail through partial processing, provides detailed error information for failed transactions through error reporting, automatically retries failed processing steps with retry mechanisms, and flags transactions requiring human review through manual review processes.
+
+## Performance Metrics
+
+### Processing Speed
+
+Small statements with less than 100 transactions are typically processed in under 30 seconds, medium statements with 100-1000 transactions are usually completed within 2-5 minutes, and large statements with more than 1000 transactions may take 5-15 minutes depending on complexity.
+
+### Accuracy Rates
+
+Our system achieves 99%+ accuracy for transaction extraction on standard bank statement formats, 95%+ accuracy for entity identification of known merchants and services, 90%+ accuracy for categorization of primary categories, and 85%+ accuracy for recurrence detection of clear recurring patterns.
+
+## Getting Started
+
+Ready to process your bank statements? Check out our [API Reference](/api-reference/bank-statements/submit) for detailed endpoint documentation, or visit our [Quick Start Guide](/quickstart) to begin processing bank statements in minutes.
