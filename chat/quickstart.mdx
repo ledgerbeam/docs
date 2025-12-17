@@ -1,0 +1,119 @@
+---
+title: "Quick Start"
+slug: "chat/quickstart"
+---
+
+Get started with Ledgerbeam's conversational analytics in just a few minutes. This guide will walk you through connecting a data source and making your first query.
+
+## Prerequisites
+
+- A Ledgerbeam account ([sign up here](https://app.ledgerbeam.com))
+- An API key (see [Authentication](./authentication))
+- A data source to connect (database, spreadsheet, etc.)
+
+## Step 1: Connect Your Data Source
+
+First, you'll need to connect a data source. This could be a database, spreadsheet, or other business tool.
+
+### Connect a Database
+
+```bash
+curl -X POST https://api.ledgerbeam.com/v1/resources \
+  -H "API-KEY: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "My Database",
+    "type": "postgres",
+    "uri": "postgresql://user:password@host:5432/database"
+  }'
+```
+
+### Connect Google Sheets
+
+```bash
+curl -X POST https://api.ledgerbeam.com/v1/resources \
+  -H "API-KEY: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Sales Data",
+    "type": "google_sheets",
+    "uri": "https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID"
+  }'
+```
+
+## Step 2: Make Your First Query
+
+Once your data source is connected, you can start asking questions:
+
+```bash
+curl -X POST https://api.ledgerbeam.com/v1/chats/messages \
+  -H "API-KEY: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "resource_id": "your_resource_id",
+    "content": "What are my top 10 customers by revenue this month?"
+  }'
+```
+
+## Step 3: Continue the Conversation
+
+You can continue asking follow-up questions in the same thread:
+
+```bash
+curl -X POST https://api.ledgerbeam.com/v1/chats/messages \
+  -H "API-KEY: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "resource_id": "your_resource_id",
+    "thread_id": "thread_id_from_previous_response",
+    "content": "Show me a breakdown by region"
+  }'
+```
+
+## Step 4: Enable Streaming (Optional)
+
+For real-time responses, enable streaming:
+
+```bash
+curl -X POST https://api.ledgerbeam.com/v1/chats/messages \
+  -H "API-KEY: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "resource_id": "your_resource_id",
+    "content": "What are my sales trends?",
+    "stream": true
+  }'
+```
+
+## Example Response
+
+```json
+{
+  "user_message": {
+    "id": "msg_123",
+    "content": "What are my top customers?",
+    "role": "user"
+  },
+  "assistant_message": {
+    "id": "msg_124",
+    "content": "Here are your top customers by revenue...",
+    "role": "assistant"
+  },
+  "meta": {
+    "answer": "Your top customers are...",
+    "metrics": {
+      "row_count": 10,
+      "query_time": "0.45s",
+      "query": "SELECT ..."
+    }
+  },
+  "thread_id": "thread_abc123"
+}
+```
+
+## Next Steps
+
+- Explore the [Chat API Reference](/api-reference/chats/create-message) for detailed documentation
+- Learn about [Resources](/resources/overview) and connecting data sources
+- Check out [Advanced Features](/chat/advanced) for more capabilities
+
