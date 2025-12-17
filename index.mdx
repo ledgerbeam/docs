@@ -2,36 +2,52 @@
 title: "Introduction"
 ---
 
-LedgerBeam turns messy transaction data into clean, structured insights. Our AI instantly recognizes merchants, categorizes spending, and spots recurring patterns, turning raw banking data into actionable intelligence for your applications.
+Ledgerbeam is a conversational analytics platform that lets you talk to your data using natural language. Connect your databases, spreadsheets, and business tools, then ask questions in plain English to get instant, expert-level answers with beautiful visualizations and insights.
 
-We've built the most intelligent transaction enrichment platform that automatically categorizes, identifies, and enriches your financial data, with advanced AI, we transform raw transaction data into structured, actionable insights that power better business decisions.
+Stop building dashboards. Start talking to your data.
 
-You can start integrating with our API once you have [signed up](https://app.ledgerbeam.com) on our dashboard.
+## Conversational Analytics
 
-## Transaction Enrichment
+Ledgerbeam transforms how teams interact with their data. Instead of writing SQL queries or building complex dashboards, you can simply ask questions in natural language and receive instant, intelligent responses. Our AI-powered platform understands your data structure, generates optimized queries, and presents results in clear, actionable formats.
 
-The [Transaction Enrichment API](./enrichment/introduction) transforms raw transaction descriptions into rich, structured insights in milliseconds. Our AI engine combines advanced natural language processing with real-time merchant intelligence to automatically identify entities, categorize spending, and detect recurring patterns. Whether you're processing a single transaction or millions, our API delivers consistent, high-accuracy enrichment that scales with your business.
+## Key Features
 
-## Talk to Your Data
+### Natural Language Queries
 
-The [Talk to Your Data API](./talk-to-data/introduction) leverages conversational AI to enable natural language queries against your databases, spreadsheets, and business tools. It allows you to ask questions in plain English and receive instant, expert-level answers with beautiful visualizations and insights.
+Ask questions in plain English and get instant answers. No SQL knowledge required. Our AI understands context, learns from your data structure, and generates accurate queries automatically.
+
+### Universal Data Connections
+
+Connect to any database, spreadsheet, or business tool. We support PostgreSQL, MySQL, Supabase, Google Sheets, Stripe, Airtable, and many more. Your data stays secure and accessible.
+
+### Intelligent Responses
+
+Get more than just raw data. Our AI provides context-aware answers, suggests follow-up questions, and presents results in tables, charts, and visualizations that make insights immediately actionable.
+
+### Conversation Threads
+
+Maintain context across multiple questions. Each conversation thread remembers previous queries, allowing for natural, flowing discussions about your data.
+
+## Getting Started
+
+You can start using Ledgerbeam once you have [signed up](https://app.ledgerbeam.com) on our dashboard. Check out our [authentication guide](./authentication) to get your API key and begin making queries.
 
 ## API Reference
 
-In addition to the documentation, we also provide a detailed API reference to help you integrate. Every endpoint is accompanied by a description as well as descriptive request and response examples.
+We provide a comprehensive API reference covering all endpoints for managing resources, creating conversations, and querying your data. Every endpoint includes detailed descriptions, request examples, and response formats.
 
-The API reference also covers general information such as [authentication](./api/auth), [error handling](./api/errors), [pagination](./api/pagination) and [rate limits](./api/rate-limits).
+The API reference also covers general information such as [authentication](./authentication), [error handling](./errors), and [rate limits](./errors#rate-limits).
 
-### Universal API
+### Simple and Universal
 
-Our API is universal and simple. All you need to enrich any transaction is a single API call. No SDKs required, no complex setup, just straightforward HTTP requests that work with any programming language or framework.
+Our API is designed to be simple and universal. No SDKs required, no complex setup—just straightforward HTTP requests that work with any programming language or framework.
 
 ```bash
-POST https://api.ledgerbeam.com/v1/transactions
+POST https://api.ledgerbeam.com/v1/chats/messages
 ```
 
-# Billing and Pricing
+## Billing and Pricing
 
-Billing and pricing information are available in the [dashboard](https://app.ledgerbeam.com). If you have any questions, feel free to [reach out](./support) to us.
+Billing and pricing information are available in the [dashboard](https://app.ledgerbeam.com). If you have any questions, feel free to contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
 
 ---

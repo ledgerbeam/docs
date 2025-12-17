@@ -3,16 +3,15 @@ title: "Authentication"
 slug: "authentication"
 ---
 
-
-Start using LedgerBeam's transaction enrichment API in minutes. Create an account, get your API key, and begin enriching transactions immediately.
+Start using Ledgerbeam's conversational analytics API in minutes. Create an account, get your API key, and begin querying your data with natural language.
 
 ## Sign Up for Free
 
-Create your account on our [dashboard](https://app.ledgerbeam.com) to access all features. New accounts automatically receive 10,000 free credits for testing and development.
+Create your account on our [dashboard](https://app.ledgerbeam.com) to access all features. New accounts automatically receive free credits for testing and development.
 
 ## Set Up Your Workspace
 
-After signing up, you'll be guided through creating your workspace. This is where you'll manage your API keys, view usage analytics, and configure your integration settings.
+After signing up, you'll be guided through creating your workspace. This is where you'll manage your API keys, connect your data sources, view usage analytics, and configure your integration settings.
 
 <Frame>
   <img
@@ -39,10 +38,13 @@ Create an API key for your workspace. You can find it in the [API Keys section](
 Include your API key in the `API-KEY` header of your requests:
 
 ```bash
-curl -X POST https://api.ledgerbeam.com/v1/transactions \
+curl -X POST https://api.ledgerbeam.com/v1/chats/messages \
   -H "API-KEY: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"description": "APPLE.COM/BILL"}'
+  -d '{
+    "resource_id": "your_resource_id",
+    "content": "What are my top customers this month?"
+  }'
 ```
 
 ## Security Best Practices
@@ -51,13 +53,14 @@ curl -X POST https://api.ledgerbeam.com/v1/transactions \
 - **Use environment variables** - Store your API key in secure environment variables
 - **Rotate keys regularly** - Generate new keys periodically for enhanced security
 - **Monitor usage** - Check your dashboard regularly for unusual activity
+- **Secure your data connections** - Use encrypted connections and store credentials securely
 
 ## Rate Limits
 
-Account creation is free. But paid plans include higher limits and priority processing. Check your current plan in the [dashboard](https://app.ledgerbeam.com/settings/billing).
+Account creation is free. Paid plans include higher limits and priority processing. Check your current plan in the [dashboard](https://app.ledgerbeam.com/settings/billing).
 
 ## Need Help?
 
-- **Documentation**: Explore our [API reference](./api) for detailed examples
+- **Documentation**: Explore our [API reference](./api-reference/introduction) for detailed examples
 - **Support**: Contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com)
 - **Community**: Join our [Discord](https://discord.gg/ledgerbeam) for developer discussions
