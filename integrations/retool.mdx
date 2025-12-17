@@ -1,0 +1,64 @@
+---
+title: "Retool Integration"
+slug: "integrations/retool"
+---
+
+Connect Ledgerbeam to Retool to export data to your Retool applications and internal tools, enabling you to build powerful data-driven applications.
+
+## Features
+
+- Export query results to Retool apps
+- Use Ledgerbeam queries as data sources in Retool
+- Build internal tools with real-time data
+- Create custom dashboards and workflows
+
+## Setup Instructions
+
+1. Navigate to the Integrations page in your Ledgerbeam dashboard
+2. Click on the Retool integration card
+3. Enter your Retool organization details
+4. Generate and copy your Retool API key
+5. Paste the API key into Ledgerbeam
+6. Click "Connect" to establish the connection
+
+## Usage
+
+Once connected, you can use Ledgerbeam as a data source in Retool:
+
+1. In your Retool app, add a new resource
+2. Select "Ledgerbeam" as the resource type
+3. Configure your query or use saved queries
+4. Use the data in your Retool components
+
+## API Integration
+
+You can also use Ledgerbeam's API directly in Retool:
+
+```javascript
+// Example Retool query
+await fetch('https://api.ledgerbeam.com/v1/chats/messages', {
+  method: 'POST',
+  headers: {
+    'API-KEY': 'your-api-key',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    resource_id: 'your-resource-id',
+    content: 'What are my top customers?'
+  })
+})
+```
+
+## Troubleshooting
+
+If you encounter issues:
+
+- Verify your Retool API key is valid
+- Check that your Retool organization allows external integrations
+- Ensure your Ledgerbeam API key has the necessary permissions
+- Review the connection logs in your dashboard
+
+## Need Help?
+
+For additional support, contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
+
