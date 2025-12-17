@@ -22,28 +22,46 @@
             ]
           },
           {
-            "group": "Enrichment",
+            "group": "Chat & Conversations",
             "pages": [
-              "enrichment/overview",
-              "enrichment/entity-identification",
-              "enrichment/categorization",
-              "enrichment/recurrence"
+              "chat/overview",
+              "chat/quickstart"
             ]
           },
           {
-            "group": "Bank Statements",
+            "group": "Resources",
             "pages": [
-              "bank-statements/overview",
-              "bank-statements/processing",
-              "bank-statements/data-extraction"
+              "resources/overview",
+              "resources/postgresql",
+              "resources/mysql",
+              "resources/supabase",
+              "resources/mongodb",
+              "resources/google-sheets",
+              "resources/stripe",
+              "resources/airtable",
+              "resources/rest-api",
+              "resources/graphql",
+              "resources/authenticated-graphql",
+              "resources/intercom",
+              "resources/elasticsearch",
+              "resources/redis",
+              "resources/oracle",
+              "resources/google-calendar",
+              "resources/google-drive"
             ]
           },
           {
-            "group": "Account Holders",
+            "group": "Integrations",
             "pages": [
-              "account-holders/overview",
-              "account-holders/transaction-management",
-              "account-holders/recurring-patterns"
+              "integrations/overview",
+              "integrations/slack",
+              "integrations/metabase",
+              "integrations/retool",
+              "integrations/zapier",
+              "integrations/notion",
+              "integrations/google-docs",
+              "integrations/figma",
+              "integrations/lucidcharts"
             ]
           }
         ]
@@ -58,41 +76,15 @@
             ]
           },
           {
-            "group": "Transactions",
+            "group": "Chat",
             "pages": [
-              "api-reference/transactions/enrich",
-              "api-reference/transactions/list",
-              "api-reference/transactions/get",
-              "api-reference/transactions/assign",
-              "api-reference/transactions/delete"
-            ]
-          },
-          {
-            "group": "Account Holders",
-            "pages": [
-              "api-reference/account-holders/create",
-              "api-reference/account-holders/list",
-              "api-reference/account-holders/get",
-              "api-reference/account-holders/delete",
-              "api-reference/account-holders/recurring"
-            ]
-          },
-          {
-            "group": "Bank Statements",
-            "pages": [
-              "api-reference/bank-statements/submit",
-              "api-reference/bank-statements/list",
-              "api-reference/bank-statements/get",
-              "api-reference/bank-statements/results",
-              "api-reference/bank-statements/enrich",
-              "api-reference/bank-statements/delete"
-            ]
-          },
-          {
-            "group": "Entities",
-            "pages": [
-              "api-reference/entities/find",
-              "api-reference/entities/get"
+              "api-reference/chats/create-message",
+              "api-reference/chats/list-threads",
+              "api-reference/chats/list-messages",
+              "api-reference/chats/update-thread",
+              "api-reference/chats/archive-thread",
+              "api-reference/chats/delete-thread",
+              "api-reference/chats/list-render-options"
             ]
           },
           {

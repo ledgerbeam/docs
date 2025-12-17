@@ -1,19 +1,18 @@
 ---
 title: "Introduction"
-slug: "api"
+slug: "api-reference/introduction"
 ---
 
+Welcome to the Ledgerbeam API Reference. Our RESTful API provides programmatic access to conversational analytics, allowing you to query your data using natural language, manage resources, and interact with your data sources.
 
-Welcome to the LedgerBeam API Reference. Our RESTful API provides programmatic access to transaction enrichment, entity identification, categorization, and recurrence detection capabilities.
-
-### Base URL
+## Base URL
 
 All API requests should be made to:
 ```
 https://api.ledgerbeam.com/v1
 ```
 
-### Authentication
+## Authentication
 
 All API requests require authentication using your API key. Include it in the `API-KEY` header:
 
@@ -21,35 +20,44 @@ All API requests require authentication using your API key. Include it in the `A
 API-KEY: YOUR_API_KEY
 ```
 
-### Request Format
+See our [Authentication guide](../authentication) for details on obtaining and using your API key.
+
+## Request Format
 
 All requests should include the following headers:
 - `Content-Type: application/json`
 - `API-KEY: YOUR_API_KEY`
 
-### Response Format
+## Response Format
 
 All API responses are returned in JSON format with the following structure:
 
-#### Success Response
+### Success Response
 ```json
 {
     // Response data here
 }
 ```
 
-#### Error Response
+### Error Response
 ```json
 {
   "error": {
-    "description": [
+    "field_name": [
       "Error message here"
     ]
   }
 }
 ```
 
-### Rate Limits
+Or for general errors:
+```json
+{
+  "error": "Error message here"
+}
+```
+
+## Rate Limits
 
 - **Free Plan**: 1,000 requests per minute
 - **Pro Plan**: 10,000 requests per minute
@@ -60,9 +68,7 @@ Rate limit headers are included in all responses:
 - `X-RateLimit-Remaining`: Remaining requests in current window
 - `X-RateLimit-Reset`: Time when the rate limit resets
 
-
-
-### Error Handling
+## Error Handling
 
 The API uses standard HTTP status codes:
 
@@ -74,16 +80,18 @@ The API uses standard HTTP status codes:
 - `429` - Too Many Requests (rate limit exceeded)
 - `500` - Internal Server Error
 
+See our [Error Handling guide](../errors) for detailed error information.
 
-### Getting Started
+## Getting Started
 
 1. **Get your API key** from the [dashboard](https://app.ledgerbeam.com)
-2. **Enrich your first transaction** using the [Transaction Enrichment endpoint](./enrichment)
-3. **Explore the endpoints** to understand all available features
+2. **Connect a resource** using the [Resources API](./resources/create)
+3. **Make your first query** using the [Chat API](./chats/create-message)
+4. **Explore the endpoints** to understand all available features
 
-### Support
+## Support
 
 Need help with the API? Check out our:
-- [Quick Start Guide](./quickstart)
-- [Error Handling](./errors) documentation
+- [Quick Start Guide](../chat/quickstart)
+- [Error Handling](../errors) documentation
 - [Support](mailto:support@ledgerbeam.com) team 
