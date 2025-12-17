@@ -1,11 +1,11 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "LedgerBeam API",
-    "description": "Transaction enrichment API for identifying entities, categorizing transactions, and detecting recurring patterns",
+    "title": "Ledgerbeam API",
+    "description": "Conversational analytics API for querying data using natural language, managing resources, and interacting with data sources",
     "version": "1.0.0",
     "contact": {
-      "name": "LedgerBeam Support",
+      "name": "Ledgerbeam Support",
       "email": "support@ledgerbeam.com"
     },
     "license": {
@@ -1523,6 +1523,278 @@
           }
         }
       }
+    },
+    "/chats/messages": {
+      "post": {
+        "summary": "Create message",
+        "description": "Create a new message in a chat thread to query your data using natural language",
+        "operationId": "createMessage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Message created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chats/threads": {
+      "get": {
+        "summary": "List threads",
+        "description": "Retrieve a list of all conversation threads",
+        "operationId": "listThreads",
+        "responses": {
+          "200": {
+            "description": "Threads retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thread"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chats/threads/{thread_id}": {
+      "put": {
+        "summary": "Update thread",
+        "description": "Update a conversation thread's metadata",
+        "operationId": "updateThread",
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Thread ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateThreadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Thread updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Thread updated successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Thread not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete thread",
+        "description": "Permanently delete a conversation thread and all its messages",
+        "operationId": "deleteThread",
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Thread ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thread deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Thread deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Thread not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chats/threads/{thread_id}/archive": {
+      "put": {
+        "summary": "Archive thread",
+        "description": "Archive a conversation thread",
+        "operationId": "archiveThread",
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Thread ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thread archived successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Thread archived successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Thread not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chats/threads/{thread_id}/messages": {
+      "get": {
+        "summary": "List messages",
+        "description": "Retrieve all messages in a specific conversation thread",
+        "operationId": "listMessages",
+        "parameters": [
+          {
+            "name": "thread_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Thread ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Messages retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Thread not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chats/render-options": {
+      "get": {
+        "summary": "List render options",
+        "description": "Retrieve available render options for message content",
+        "operationId": "listRenderOptions",
+        "responses": {
+          "200": {
+            "description": "Render options retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RenderOption"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2836,6 +3108,216 @@
                 "example": "2024-01-31"
               }
             }
+          }
+        }
+      },
+      "CreateMessageRequest": {
+        "type": "object",
+        "required": [
+          "resource_id",
+          "content"
+        ],
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "description": "The unique identifier of the resource (data source) to query",
+            "example": "res_123456789"
+          },
+          "content": {
+            "type": "string",
+            "description": "Your natural language question or query",
+            "example": "What are my top 10 customers by revenue this month?"
+          },
+          "thread_id": {
+            "type": "string",
+            "description": "Optional. The thread ID to continue an existing conversation. If not provided, a new thread will be created.",
+            "example": "thread_abc123"
+          },
+          "stream": {
+            "type": "boolean",
+            "description": "Optional. Set to true to enable streaming responses via Server-Sent Events (SSE). Defaults to false.",
+            "default": false
+          },
+          "action": {
+            "type": "string",
+            "description": "Optional. Specify an action type for the query (e.g., 'analyze', 'visualize', 'summarize')."
+          }
+        }
+      },
+      "CreateMessageResponse": {
+        "type": "object",
+        "properties": {
+          "user_message": {
+            "$ref": "#/components/schemas/Message"
+          },
+          "assistant_message": {
+            "$ref": "#/components/schemas/Message"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/QueryMetrics"
+          },
+          "thread_id": {
+            "type": "string",
+            "description": "Thread ID",
+            "example": "thread_abc123"
+          }
+        }
+      },
+      "Thread": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Thread ID",
+            "example": "thread_abc123"
+          },
+          "name": {
+            "type": "string",
+            "description": "Thread name",
+            "example": "Top customers this month"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp",
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp",
+            "example": "2024-01-15T10:35:00Z"
+          }
+        }
+      },
+      "UpdateThreadRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The new name for the thread",
+            "example": "Q4 Sales Analysis"
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Message ID",
+            "example": "msg_abc123"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MessageContent"
+            },
+            "description": "Message content"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "assistant"
+            ],
+            "description": "Message role",
+            "example": "user"
+          },
+          "meta": {
+            "type": "object",
+            "description": "Additional metadata",
+            "additionalProperties": true
+          }
+        }
+      },
+      "MessageContent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "integer",
+            "description": "Content type (1 = text, 2 = table, etc.)",
+            "example": 1
+          },
+          "value": {
+            "type": "string",
+            "description": "Content value",
+            "example": "Here are your top customers..."
+          },
+          "meta": {
+            "type": "object",
+            "description": "Additional metadata",
+            "additionalProperties": true
+          }
+        }
+      },
+      "QueryMetrics": {
+        "type": "object",
+        "properties": {
+          "answer": {
+            "type": "string",
+            "description": "Natural language answer",
+            "example": "Your top 10 customers by revenue this month are..."
+          },
+          "row_count": {
+            "type": "integer",
+            "description": "Number of rows returned",
+            "example": 10
+          },
+          "query_time": {
+            "type": "string",
+            "description": "Query execution time",
+            "example": "0.45s"
+          },
+          "query_type": {
+            "type": "string",
+            "description": "Type of query executed",
+            "example": "SELECT"
+          },
+          "query": {
+            "type": "string",
+            "description": "Generated SQL query",
+            "example": "SELECT customer_name, SUM(revenue) as total_revenue FROM orders WHERE ..."
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "description": "Query result rows"
+          },
+          "thinking": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "AI thinking steps"
+          },
+          "rendered": {
+            "type": "object",
+            "description": "Rendered content (tables, charts, etc.)",
+            "additionalProperties": true
+          }
+        }
+      },
+      "RenderOption": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Render option ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Render option name",
+            "example": "Text"
+          },
+          "key": {
+            "type": "string",
+            "description": "Render option key",
+            "example": "text"
           }
         }
       }
