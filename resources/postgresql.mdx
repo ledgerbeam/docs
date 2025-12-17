@@ -1,0 +1,116 @@
+---
+title: "PostgreSQL"
+slug: "resources/postgresql"
+---
+
+Connect your PostgreSQL database to Ledgerbeam to query your data using natural language. PostgreSQL is one of the most popular open-source relational databases and is fully supported by Ledgerbeam.
+
+## Features
+
+- Full PostgreSQL support including advanced features
+- Read-only and read/write connection modes
+- SSH tunnel support for secure connections
+- SSL/TLS encryption support
+- Automatic schema analysis
+
+## Connection Requirements
+
+- PostgreSQL server version 9.5 or higher
+- Network access to your PostgreSQL server
+- Database credentials (username and password)
+- Database name you want to connect to
+
+## Setup Instructions
+
+### Standard Connection
+
+1. Navigate to Resources in your Ledgerbeam dashboard
+2. Click "Add Resource" and select "PostgreSQL"
+3. Choose your connection method (Standard or SSH Tunnel)
+4. Select connection mode (Read only or Read / Write)
+5. Enter your connection details:
+   - **Host address**: Your PostgreSQL server hostname or IP
+   - **Port**: PostgreSQL port (default: 5432)
+   - **Database name**: The database you want to connect to
+   - **Username**: Your PostgreSQL username
+   - **Password**: Your PostgreSQL password
+6. Configure SSL settings if required
+7. Click "Test Connection" to verify
+8. Click "Create Resource" to complete setup
+
+### SSH Tunnel Connection
+
+For secure connections through an SSH tunnel:
+
+1. Select "SSH Tunnel" as the connection method
+2. Enter SSH connection details:
+   - **SSH Host address**: Your SSH server hostname or IP
+   - **SSH Port**: SSH port (default: 22)
+   - **SSH Username**: Your SSH username
+3. Choose SSH authentication method:
+   - **SSH Key**: Provide your private key and optional passphrase
+   - **Password**: Provide your SSH password
+4. Enter your PostgreSQL connection details
+5. Test and create the resource
+
+## SSL Configuration
+
+Ledgerbeam supports various SSL modes:
+
+- **Default**: Use PostgreSQL's default SSL settings
+- **Allow**: Try SSL, fall back to non-SSL if unavailable
+- **Prefer**: Prefer SSL, fall back to non-SSL if unavailable
+- **Require**: Require SSL connection
+- **Disable**: Disable SSL
+- **Verify CA**: Require SSL and verify CA certificate
+- **Verify Full**: Require SSL and verify full certificate chain
+
+For verify-ca and verify-full modes, you can provide certificates via file upload or Base64 string.
+
+## Connection Modes
+
+- **Read only**: Safe for production, prevents accidental data modification
+- **Read / Write**: Allows data modifications through queries (use with caution)
+
+## Schema Analysis
+
+After connecting, Ledgerbeam automatically:
+- Analyzes your database schema
+- Identifies tables, columns, and relationships
+- Understands data types and constraints
+- Makes your data queryable with natural language
+
+## Troubleshooting
+
+### Connection Issues
+
+- Verify your PostgreSQL server is accessible from the internet
+- Check firewall rules allow connections on port 5432 (or your custom port)
+- Ensure your credentials are correct
+- Verify the database name exists
+
+### SSL Issues
+
+- Check your SSL certificate is valid
+- Verify certificate format matches your selection (file or Base64)
+- Ensure SSL mode matches your server configuration
+
+### SSH Tunnel Issues
+
+- Verify SSH server is accessible
+- Check SSH credentials are correct
+- Ensure SSH key format is valid (PEM format)
+- Verify PostgreSQL is accessible from the SSH server
+
+## Best Practices
+
+- Use read-only mode for production databases
+- Enable SSL for secure connections
+- Use SSH tunnels for additional security
+- Regularly resync your resource to pick up schema changes
+- Monitor connection health in your dashboard
+
+## Need Help?
+
+For additional support, contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
+

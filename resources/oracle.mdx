@@ -1,0 +1,78 @@
+---
+title: "Oracle"
+slug: "resources/oracle"
+---
+
+Connect your Oracle database to Ledgerbeam to query your data using natural language. Oracle is an enterprise-grade relational database.
+
+## Features
+
+- Full Oracle database support
+- Automatic schema analysis
+- Support for Oracle-specific features
+- Secure connection handling
+
+## Connection Requirements
+
+- Oracle database server (version 11g or higher)
+- Network access to your Oracle server
+- Database credentials (username and password)
+- Database name or SID
+
+## Setup Instructions
+
+1. Navigate to Resources in your Ledgerbeam dashboard
+2. Click "Add Resource" and select "Oracle"
+3. Enter your Oracle connection details:
+   - **Host**: Your Oracle server hostname or IP
+   - **Port**: Oracle port (default: 1521)
+   - **Database/SID**: Your Oracle database name or SID
+   - **Username**: Your Oracle username
+   - **Password**: Your Oracle password
+4. Configure SSL/TLS if required
+5. Click "Test Connection" to verify
+6. Click "Create Resource" to complete setup
+
+## Schema Analysis
+
+After connecting, Ledgerbeam automatically:
+- Analyzes your Oracle database schema
+- Identifies tables, columns, and relationships
+- Understands data types and constraints
+- Makes your data queryable with natural language
+
+## Querying Oracle Data
+
+You can query your Oracle data using natural language:
+
+- "What are the top customers by revenue?"
+- "Show me recent orders"
+- "What's the average order value?"
+
+## Troubleshooting
+
+### Connection Issues
+
+- Verify your Oracle server is accessible
+- Check firewall rules allow connections
+- Ensure your credentials are correct
+- Verify database name/SID is correct
+- Check TNS configuration if using TNS names
+
+### Permission Issues
+
+- Verify user has read permissions
+- Check that tables are accessible
+- Ensure proper schema access
+
+## Best Practices
+
+- Use read-only database users for production
+- Enable SSL/TLS for secure connections
+- Regularly resync your resource to pick up schema changes
+- Monitor connection health
+
+## Need Help?
+
+For additional support, contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
+

@@ -1,0 +1,76 @@
+---
+title: "GraphQL API"
+slug: "resources/graphql"
+---
+
+Connect any GraphQL API to Ledgerbeam to query your GraphQL data using natural language. GraphQL is a query language for APIs.
+
+## Features
+
+- Full GraphQL support
+- Automatic schema introspection
+- Query and mutation support
+- Custom authentication
+
+## Connection Requirements
+
+- A GraphQL API endpoint
+- API authentication (if required)
+- Network access to the GraphQL endpoint
+
+## Setup Instructions
+
+1. Navigate to Resources in your Ledgerbeam dashboard
+2. Click "Add Resource" and select "GraphQL API"
+3. Enter your GraphQL configuration:
+   - **Endpoint URL**: Your GraphQL endpoint (e.g., `https://api.example.com/graphql`)
+   - **Authentication**: Configure if required
+     - API Key
+     - Bearer Token
+     - Custom headers
+4. Ledgerbeam will introspect your GraphQL schema
+5. Test the connection
+6. Click "Create Resource" to complete setup
+
+## Schema Introspection
+
+Ledgerbeam automatically:
+- Introspects your GraphQL schema
+- Understands types, queries, and mutations
+- Identifies relationships and nested structures
+- Makes your GraphQL data queryable
+
+## Querying GraphQL APIs
+
+You can query your GraphQL data using natural language:
+
+- "What are all the users?"
+- "Show me the latest posts"
+- "What's the total count of orders?"
+
+## Troubleshooting
+
+### Connection Issues
+
+- Verify your GraphQL endpoint URL is correct
+- Check that the endpoint is accessible
+- Ensure authentication credentials are correct
+- Verify network connectivity
+
+### Schema Issues
+
+- Check that GraphQL introspection is enabled
+- Verify your schema is valid
+- Ensure you have permissions to introspect
+
+## Best Practices
+
+- Use HTTPS for secure connections
+- Keep API credentials secure
+- Enable GraphQL introspection for better results
+- Document your schema for reference
+
+## Need Help?
+
+For additional support, contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
+

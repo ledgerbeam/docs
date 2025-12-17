@@ -1,0 +1,89 @@
+---
+title: "MongoDB"
+slug: "resources/mongodb"
+---
+
+Connect your MongoDB database to Ledgerbeam to query your document data using natural language. MongoDB is a popular NoSQL database.
+
+## Features
+
+- Full MongoDB support
+- Automatic collection analysis
+- Document structure understanding
+- Support for MongoDB Atlas and self-hosted instances
+
+## Connection Requirements
+
+- MongoDB server version 4.0 or higher
+- Network access to your MongoDB server
+- Database credentials (if authentication is enabled)
+- Database name you want to connect to
+
+## Setup Instructions
+
+1. Navigate to Resources in your Ledgerbeam dashboard
+2. Click "Add Resource" and select "MongoDB"
+3. Enter your connection details:
+   - **Connection URI**: Your MongoDB connection string
+     - Format: `mongodb://[username:password@]host[:port][/database][?options]`
+     - For MongoDB Atlas: `mongodb+srv://[username:password@]cluster.mongodb.net/database`
+   - **Database name**: The database you want to connect to
+4. Click "Test Connection" to verify
+5. Click "Create Resource" to complete setup
+
+## MongoDB Atlas Connection
+
+For MongoDB Atlas (cloud-hosted):
+
+1. Get your connection string from MongoDB Atlas:
+   - Go to your cluster in MongoDB Atlas
+   - Click "Connect"
+   - Choose "Connect your application"
+   - Copy the connection string
+2. Replace `<password>` with your database password
+3. Enter the connection string in Ledgerbeam
+4. Test and create the resource
+
+## Schema Analysis
+
+After connecting, Ledgerbeam automatically:
+- Analyzes your MongoDB collections
+- Understands document structure and fields
+- Identifies data types and nested structures
+- Makes your document data queryable
+
+## Querying MongoDB
+
+You can query your MongoDB data using natural language:
+
+- "What are the most recent orders?"
+- "Show me users with the highest activity"
+- "What's the average order value by category?"
+
+## Troubleshooting
+
+### Connection Issues
+
+- Verify your MongoDB server is accessible
+- Check firewall rules allow connections
+- Ensure your credentials are correct
+- Verify the database name exists
+- For Atlas, check IP whitelist settings
+
+### Authentication Issues
+
+- Verify username and password are correct
+- Check authentication database if different from target database
+- Ensure user has read permissions
+
+## Best Practices
+
+- Use read-only database users for production
+- Enable SSL/TLS for secure connections
+- Regularly resync your resource to pick up schema changes
+- Monitor connection health in your dashboard
+
+## Need Help?
+
+For additional support, contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
+

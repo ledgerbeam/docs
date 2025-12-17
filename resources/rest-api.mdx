@@ -1,0 +1,86 @@
+---
+title: "REST API"
+slug: "resources/rest-api"
+---
+
+Connect any REST API to Ledgerbeam to query external data sources using natural language. This allows you to integrate with custom APIs and services.
+
+## Features
+
+- Connect to any REST API
+- Custom authentication support
+- Flexible endpoint configuration
+- Automatic response parsing
+
+## Connection Requirements
+
+- A REST API endpoint
+- API authentication credentials (if required)
+- Network access to the API
+
+## Setup Instructions
+
+1. Navigate to Resources in your Ledgerbeam dashboard
+2. Click "Add Resource" and select "REST API"
+3. Enter your API configuration:
+   - **Base URL**: Your API's base URL (e.g., `https://api.example.com`)
+   - **Authentication**: Choose authentication method
+     - API Key
+     - Bearer Token
+     - Basic Auth
+     - Custom headers
+4. Configure authentication details
+5. Test the connection
+6. Click "Create Resource" to complete setup
+
+## Authentication Methods
+
+### API Key
+- Add API key as a header or query parameter
+- Specify header name (e.g., `X-API-Key`)
+
+### Bearer Token
+- Provide your bearer token
+- Automatically added as `Authorization: Bearer <token>`
+
+### Basic Auth
+- Provide username and password
+- Automatically encoded and added to Authorization header
+
+### Custom Headers
+- Add any custom headers required by your API
+
+## Querying REST APIs
+
+Ledgerbeam will:
+- Make appropriate HTTP requests to your API
+- Parse JSON responses
+- Understand response structure
+- Make data queryable with natural language
+
+## Troubleshooting
+
+### Connection Issues
+
+- Verify your API base URL is correct
+- Check that the API is accessible
+- Ensure authentication credentials are correct
+- Verify network connectivity
+
+### Response Issues
+
+- Check that your API returns JSON
+- Verify response structure is consistent
+- Ensure error responses are handled properly
+
+## Best Practices
+
+- Use HTTPS for secure connections
+- Keep API credentials secure
+- Test your API endpoints before connecting
+- Document your API structure for better query results
+
+## Need Help?
+
+For additional support, contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
+

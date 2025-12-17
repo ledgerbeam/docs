@@ -1,0 +1,118 @@
+---
+title: "Overview"
+slug: "resources/overview"
+---
+
+Resources are your connected data sources in Ledgerbeam. They represent databases, spreadsheets, APIs, and other business tools that you want to query using natural language.
+
+## What Are Resources?
+
+A resource is a connection to a data source that Ledgerbeam can query. When you create a resource, Ledgerbeam analyzes the data structure, understands the schema, and makes it available for conversational queries.
+
+## Supported Resource Types
+
+### Databases
+
+Connect to relational databases to query structured data:
+
+- **[PostgreSQL](/resources/postgresql)** - Full support for PostgreSQL databases
+- **[MySQL](/resources/mysql)** - Connect to MySQL and MariaDB databases
+- **[Supabase](/resources/supabase)** - Connect to Supabase projects
+- **[MongoDB](/resources/mongodb)** - Connect to MongoDB databases
+- **[Oracle](/resources/oracle)** - Connect to Oracle databases
+
+### Spreadsheets
+
+Query spreadsheet data directly:
+
+- **[Google Sheets](/resources/google-sheets)** - Connect to Google Sheets spreadsheets
+
+### Business Tools
+
+Integrate with popular business applications:
+
+- **[Stripe](/resources/stripe)** - Query payment and subscription data
+- **[Airtable](/resources/airtable)** - Connect to Airtable bases
+- **[Intercom](/resources/intercom)** - Connect to Intercom for customer data
+
+### APIs
+
+Connect to REST and GraphQL APIs:
+
+- **[REST API](/resources/rest-api)** - Connect to any REST API
+- **[GraphQL](/resources/graphql)** - Connect to GraphQL APIs
+- **[Authenticated GraphQL](/resources/authenticated-graphql)** - Connect to authenticated GraphQL endpoints
+
+### Search & Caching
+
+Connect to search engines and caching systems:
+
+- **[Elasticsearch](/resources/elasticsearch)** - Connect to Elasticsearch clusters
+- **[Redis](/resources/redis)** - Connect to Redis instances
+
+### Google Services
+
+Integrate with Google Workspace:
+
+- **[Google Calendar](/resources/google-calendar)** - Connect to Google Calendar
+- **[Google Drive](/resources/google-drive)** - Connect to Google Drive
+
+## Resource Lifecycle
+
+### Creating Resources
+
+When you create a resource, Ledgerbeam:
+
+1. Validates the connection credentials
+2. Analyzes the data structure and schema
+3. Identifies tables, columns, and relationships
+4. Makes the resource available for queries
+
+### Schema Analysis
+
+Ledgerbeam automatically analyzes your data structure to understand:
+
+- Tables and their relationships
+- Column names, types, and constraints
+- Primary and foreign keys
+- Data patterns and sample values
+
+### Resyncing Resources
+
+If your data structure changes, you can resync a resource to update Ledgerbeam's understanding of your schema.
+
+## Security
+
+### Credential Management
+
+- Credentials are encrypted and stored securely
+- Passwords are never exposed in API responses
+- Connections use encrypted protocols (SSL/TLS)
+
+### Access Control
+
+- Resources are scoped to your organization
+- Only authorized team members can access resources
+- API keys control access to resources
+
+## Container Management
+
+Resources contain containers (tables, sheets, etc.) that hold your data. You can:
+
+- List all containers in a resource
+- Get detailed information about specific containers
+- Update container metadata and descriptions
+- Manage fields within containers
+
+## Field Configuration
+
+For each field in your containers, you can:
+
+- Set semantic types (e.g., "email", "currency", "date")
+- Configure possible values for categorical data
+- Add descriptions to help the AI understand your data better
+
+## Getting Started
+
+Ready to connect your first data source? Check out our [API Reference](/api-reference/resources/create) for detailed endpoint documentation, or see our [Quick Start Guide](/resources/quickstart) to connect a resource in minutes.
+

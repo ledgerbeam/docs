@@ -1,0 +1,75 @@
+---
+title: "Redis"
+slug: "resources/redis"
+---
+
+Connect your Redis instance to Ledgerbeam to query your cached data using natural language. Redis is an in-memory data structure store.
+
+## Features
+
+- Full Redis integration
+- Support for keys, strings, hashes, lists, and sets
+- Automatic data structure detection
+- Real-time data access
+
+## Connection Requirements
+
+- A Redis server (version 5.0 or higher)
+- Network access to your Redis server
+- Authentication password (if required)
+
+## Setup Instructions
+
+1. Navigate to Resources in your Ledgerbeam dashboard
+2. Click "Add Resource" and select "Redis"
+3. Enter your Redis configuration:
+   - **Host**: Your Redis host (e.g., `redis.example.com`)
+   - **Port**: Redis port (default: 6379)
+   - **Password**: Redis password (if required)
+   - **Database**: Redis database number (default: 0)
+4. Click "Test Connection" to verify
+5. Click "Create Resource" to complete setup
+
+## Data Structures
+
+Ledgerbeam supports querying:
+- **Strings**: Simple key-value pairs
+- **Hashes**: Field-value maps
+- **Lists**: Ordered collections
+- **Sets**: Unordered collections
+- **Sorted Sets**: Ordered collections with scores
+
+## Querying Redis Data
+
+You can query your Redis data using natural language:
+
+- "What keys exist in Redis?"
+- "Show me the value of a specific key"
+- "What's the size of a hash or list?"
+
+## Troubleshooting
+
+### Connection Issues
+
+- Verify your Redis server is accessible
+- Check firewall rules allow connections on port 6379
+- Ensure authentication password is correct
+- Verify Redis is running
+
+### Permission Issues
+
+- Check that your Redis user has read permissions
+- Verify database number is correct
+- Ensure keys are accessible
+
+## Best Practices
+
+- Use read-only mode for production
+- Enable SSL/TLS for secure connections (if supported)
+- Regularly monitor Redis performance
+- Keep authentication credentials secure
+
+## Need Help?
+
+For additional support, contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
+

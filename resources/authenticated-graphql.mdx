@@ -1,0 +1,105 @@
+---
+title: "Authenticated GraphQL API"
+slug: "resources/authenticated-graphql"
+---
+
+Connect an authenticated GraphQL API to Ledgerbeam to query your GraphQL data using natural language. This is for GraphQL APIs that require custom authentication.
+
+## Features
+
+- Full GraphQL support with authentication
+- Custom authentication methods
+- Automatic schema introspection
+- Query and mutation support
+
+## Connection Requirements
+
+- A GraphQL API endpoint
+- Authentication credentials (API key, token, etc.)
+- Network access to the GraphQL endpoint
+
+## Setup Instructions
+
+1. Navigate to Resources in your Ledgerbeam dashboard
+2. Click "Add Resource" and select "Authenticated GraphQL API"
+3. Enter your GraphQL configuration:
+   - **Endpoint URL**: Your GraphQL endpoint (e.g., `https://api.example.com/graphql`)
+   - **Authentication**: Configure your authentication method
+     - API Key (header or query parameter)
+     - Bearer Token
+     - Basic Auth
+     - Custom headers
+4. Provide authentication credentials
+5. Ledgerbeam will introspect your GraphQL schema
+6. Test the connection
+7. Click "Create Resource" to complete setup
+
+## Authentication Methods
+
+### API Key
+- Add API key as a header (e.g., `X-API-Key`) or query parameter
+- Specify the header/parameter name and value
+
+### Bearer Token
+- Provide your bearer token
+- Automatically added as `Authorization: Bearer <token>`
+
+### Basic Auth
+- Provide username and password
+- Automatically encoded and added to Authorization header
+
+### Custom Headers
+- Add any custom headers required by your API
+- Useful for custom authentication schemes
+
+## Schema Introspection
+
+Ledgerbeam automatically:
+- Introspects your GraphQL schema
+- Understands types, queries, and mutations
+- Identifies relationships and nested structures
+- Makes your GraphQL data queryable
+
+## Querying Authenticated GraphQL APIs
+
+You can query your GraphQL data using natural language:
+
+- "What are all the users?"
+- "Show me the latest posts"
+- "What's the total count of orders?"
+
+## Troubleshooting
+
+### Connection Issues
+
+- Verify your GraphQL endpoint URL is correct
+- Check that the endpoint is accessible
+- Ensure authentication credentials are correct
+- Verify network connectivity
+
+### Authentication Issues
+
+- Check that your API key or token is valid
+- Verify authentication method matches your API requirements
+- Ensure credentials haven't expired
+- Check header names and formats
+
+### Schema Issues
+
+- Check that GraphQL introspection is enabled
+- Verify your schema is valid
+- Ensure you have permissions to introspect
+- Verify authentication allows schema access
+
+## Best Practices
+
+- Use HTTPS for secure connections
+- Keep API credentials secure and encrypted
+- Enable GraphQL introspection for better results
+- Regularly rotate authentication tokens
+- Document your schema for reference
+
+## Need Help?
+
+For additional support, contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
+

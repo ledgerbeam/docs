@@ -1,0 +1,73 @@
+---
+title: "Elasticsearch"
+slug: "resources/elasticsearch"
+---
+
+Connect your Elasticsearch cluster to Ledgerbeam to query your search and analytics data using natural language. Elasticsearch is a distributed search and analytics engine.
+
+## Features
+
+- Full Elasticsearch integration
+- Support for indices and documents
+- Query DSL understanding
+- Automatic index analysis
+
+## Connection Requirements
+
+- An Elasticsearch cluster (version 7.0 or higher)
+- Network access to your Elasticsearch cluster
+- Authentication credentials (if required)
+
+## Setup Instructions
+
+1. Navigate to Resources in your Ledgerbeam dashboard
+2. Click "Add Resource" and select "Elasticsearch"
+3. Enter your Elasticsearch configuration:
+   - **Host**: Your Elasticsearch host (e.g., `https://elasticsearch.example.com`)
+   - **Port**: Elasticsearch port (default: 9200)
+   - **Authentication**: If required, provide credentials
+4. Click "Test Connection" to verify
+5. Click "Create Resource" to complete setup
+
+## Schema Analysis
+
+After connecting, Ledgerbeam automatically:
+- Analyzes your Elasticsearch indices
+- Understands document mappings
+- Identifies field types and structures
+- Makes your Elasticsearch data queryable
+
+## Querying Elasticsearch
+
+You can query your Elasticsearch data using natural language:
+
+- "What are the most recent documents in the logs index?"
+- "Show me documents matching a specific pattern"
+- "What's the total count of documents?"
+
+## Troubleshooting
+
+### Connection Issues
+
+- Verify your Elasticsearch cluster is accessible
+- Check firewall rules allow connections
+- Ensure authentication credentials are correct
+- Verify cluster health
+
+### Index Issues
+
+- Check that indices exist and are accessible
+- Verify index mappings are correct
+- Ensure you have read permissions
+
+## Best Practices
+
+- Use read-only users for production
+- Enable SSL/TLS for secure connections
+- Regularly resync your resource to pick up changes
+- Monitor cluster health
+
+## Need Help?
+
+For additional support, contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
+

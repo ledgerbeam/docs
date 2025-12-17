@@ -1,0 +1,81 @@
+---
+title: "Supabase"
+slug: "resources/supabase"
+---
+
+Connect your Supabase project to Ledgerbeam to query your data using natural language. Supabase is an open-source Firebase alternative built on PostgreSQL.
+
+## Features
+
+- Full Supabase PostgreSQL support
+- Simple URI-based connection
+- Automatic schema analysis
+- Secure connection handling
+
+## Connection Requirements
+
+- An active Supabase project
+- Your Supabase database connection URI
+- Network access to your Supabase instance
+
+## Setup Instructions
+
+1. Navigate to Resources in your Ledgerbeam dashboard
+2. Click "Add Resource" and select "Supabase"
+3. Get your Supabase connection URI:
+   - Go to your Supabase project dashboard
+   - Navigate to Settings > Database
+   - Copy your connection string (URI format)
+4. Enter the URI in Ledgerbeam:
+   - Format: `postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres`
+   - Replace `[YOUR-PASSWORD]` with your database password
+   - Replace `[PROJECT-REF]` with your project reference
+5. Click "Test Connection" to verify
+6. Click "Create Resource" to complete setup
+
+## Finding Your Connection URI
+
+Your Supabase connection URI can be found in:
+- **Supabase Dashboard**: Settings > Database > Connection string
+- **Connection Pooling**: Settings > Database > Connection pooling (for connection pooling)
+
+## Security
+
+- Passwords are encrypted before storage
+- Connections use SSL/TLS by default
+- Credentials are never exposed in API responses
+
+## Schema Analysis
+
+After connecting, Ledgerbeam automatically:
+- Analyzes your Supabase database schema
+- Identifies tables, columns, and relationships
+- Understands Row Level Security (RLS) policies
+- Makes your data queryable with natural language
+
+## Troubleshooting
+
+### Connection Issues
+
+- Verify your Supabase project is active
+- Check that your database password is correct
+- Ensure your project reference is correct in the URI
+- Verify network connectivity to Supabase
+
+### URI Format Issues
+
+- Ensure the URI follows the correct format
+- Check for special characters in passwords (may need URL encoding)
+- Verify the project reference matches your Supabase project
+
+## Best Practices
+
+- Use connection pooling URIs for better performance
+- Keep your database password secure
+- Regularly resync your resource to pick up schema changes
+- Monitor connection health in your dashboard
+
+## Need Help?
+
+For additional support, contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
+

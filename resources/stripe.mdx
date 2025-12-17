@@ -1,0 +1,91 @@
+---
+title: "Stripe"
+slug: "resources/stripe"
+---
+
+Connect your Stripe account to Ledgerbeam to query payment, subscription, and customer data using natural language. Stripe is a popular payment processing platform.
+
+## Features
+
+- Full Stripe API integration
+- Access to payments, customers, subscriptions, and more
+- Real-time data synchronization
+- Secure API key management
+
+## Connection Requirements
+
+- An active Stripe account
+- Stripe API keys (Secret key)
+- Network access to Stripe API
+
+## Setup Instructions
+
+1. Navigate to Resources in your Ledgerbeam dashboard
+2. Click "Add Resource" and select "Stripe"
+3. Get your Stripe API key:
+   - Go to your Stripe Dashboard
+   - Navigate to Developers > API keys
+   - Copy your Secret key (starts with `sk_`)
+4. Enter your Stripe Secret key in Ledgerbeam
+5. Click "Test Connection" to verify
+6. Click "Create Resource" to complete setup
+
+## API Keys
+
+Stripe provides two types of API keys:
+- **Publishable key** (starts with `pk_`): Not used for Ledgerbeam
+- **Secret key** (starts with `sk_`): Required for Ledgerbeam connection
+
+Use your **Secret key** for the connection. Keep it secure and never expose it publicly.
+
+## Available Data
+
+Once connected, you can query:
+- Payments and charges
+- Customers and customer data
+- Subscriptions and plans
+- Invoices and billing
+- Products and prices
+- Events and webhooks
+
+## Querying Stripe Data
+
+You can query your Stripe data using natural language:
+
+- "What are my total revenue this month?"
+- "Show me customers with the highest lifetime value"
+- "What subscriptions are expiring this week?"
+
+## Security
+
+- API keys are encrypted before storage
+- Connections use HTTPS
+- Credentials are never exposed in API responses
+- Use test mode keys for development
+
+## Troubleshooting
+
+### Connection Issues
+
+- Verify your Stripe API key is correct
+- Check that the key is active and not revoked
+- Ensure you're using the Secret key (not Publishable)
+- Verify network connectivity to Stripe API
+
+### Permission Issues
+
+- Check that your API key has the necessary permissions
+- Verify your Stripe account is active
+- Ensure you have access to the data you're querying
+
+## Best Practices
+
+- Use test mode keys for development and testing
+- Regularly rotate your API keys
+- Monitor API usage in your Stripe dashboard
+- Use webhooks for real-time updates (separate from resource connection)
+
+## Need Help?
+
+For additional support, contact us at [support@ledgerbeam.com](mailto:support@ledgerbeam.com).
+
